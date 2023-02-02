@@ -1,0 +1,24 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-image: url(images/background.png);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#animate {
+    width: 100px;
+    height: 120px;
+    position: absolute;
+    /* background-color: red; */
+    background-image: url(images/smallgreenboat2.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}

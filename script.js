@@ -1,7 +1,6 @@
 let containerBox = document.getElementById("game")
 let boxDiv = document.getElementById("animate")
 
-
 let boats = [
     { 
         name: "blueboat",
@@ -46,64 +45,33 @@ function createBoats(){
 }
 
 createBoats()
-
+let moving 
 function animationBox(){
     let boatDivs = document.querySelectorAll(".animate")
     let id = null
     clearInterval(id);
     for(let boatMove of boatDivs){
-        let movementLeft = 0.14;
-        let movementTop = 0.07;
-        boatMove.style.left = parseFloat(boatMove.style.left) - movementLeft + "vh";
-        boatMove.style.top = parseFloat(boatMove.style.top) + movementTop + "vh";
-        if (parseFloat(boatMove.style.left) < 5.6) {
-          clearInterval(id);
-          alert(`${boatMove.id} wins!`);
-        }
-        // moving = setInterval(moveBoats, Math.floor((Math.random()*5)+Math.random(0,60)))
-        // let movementLeft = 0.14
-        // let movementTop = 0.07
-        // // function moveBoats() {
-        //     // if (movementLeft <  5.6) {
-        //     // clearInterval(id);
-        //     // } else {
-        //     console.log("hello")
-        //     boatMove.style.top =  parseInt(boatMove.style.top) - movementTop + "vh";
-        //     boatMove.style.left =  parseInt(boatMove.style.left)- movementLeft + "vh";
-        }
-    }
-
-
-function moveBoats(boat){
-    console.log(boat.style.left)
-    let movementLeft = 0.14 
-    let movementTop = 0.07 
-    boat.style.left = boat.style.left - movementLeft
-    boat.style.top = boat.style.top - movementTop
-    if(boat.style.lef < 5.6){
-        clearInterval(moving)
-// =======
-// let initialPositionLeft = 90;
-// let inintialPositionTop = 14
-// let animationInterval = setInterval(animationBox, Math.floor((Math.random()*5)+Math.random(0,60)))
-
-// function animationBox(){
-//     inintialPositionTop +=0.07
-//     initialPositionLeft -= 0.14
-//     boxDiv.style.left = initialPositionLeft + "vh";
-//     boxDiv.style.top = inintialPositionTop + "vh";
-//     // boxDiv.style.transform = "rotate("+initialPosition+"deg)"
-//     // boxDiv.style.width = initialPosition + "px"
-//     // console.log(initialPosition)
-//     if(initialPositionLeft < 5.6){
-//         console.log("hello")
-//         clearInterval(animationInterval);
-
+        moving = setInterval(movingBoats, getRandomArbitrary(80, 200), boatMove)
     }
 }
 
-// let boatblue = document.querySelector("#boatblue")
-let animationInterval = setInterval(animationBox, Math.floor((Math.random()*5)+Math.random(0,60)))
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+function movingBoats(boat){
+    console.log(boat)
+    let movementLeft = 0.14;
+    let movementTop = 0.07;
+    boat.style.left = parseFloat(boat.style.left) - movementLeft + "vh";
+    boat.style.top = parseFloat(boat.style.top) + movementTop + "vh";
+    if (parseFloat(boat.style.left) < 5.6) {
+        clearInterval(moving);
+    //   alert(`${boatMove.id} wins!`);
+    }
+}
+
+
 
 let buttonStart = document.createElement("button")
 buttonStart.textContent = "Start Game";

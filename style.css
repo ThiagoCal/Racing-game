@@ -13,12 +13,12 @@ body{
     background-position: cover;
 }
 
-#animate {
+.animate {
     width: 100px;
     height: 120px;
     position: absolute;
     /* background-color: red; */
-    background-image: url(images/smallgreenboat2.png);
+    /* background-image: url(images/smallgreenboat2.png);
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center; */
 }

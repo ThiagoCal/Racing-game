@@ -32,7 +32,7 @@ let boats = [
 function createBoats(){
     for(let boat in boats){
         boat = boats[boat]
-        console.log(boat)
+        // console.log(boat)
         let boatDiv = document.createElement("div")
         boatDiv.setAttribute("class", "animate")
         let initialPositionLeft = boat.initialPositionLeft
@@ -47,14 +47,32 @@ function createBoats(){
 
 createBoats()
 
-let moving;
 function animationBox(){
     let boatDivs = document.querySelectorAll(".animate")
+    let id = null
+    clearInterval(id);
     for(let boatMove of boatDivs){
-        moving = setInterval(moveBoats, Math.floor((Math.random()*5)+Math.random(0,60)), boatMove)
+        let movementLeft = 0.14;
+        let movementTop = 0.07;
+        boatMove.style.left = parseFloat(boatMove.style.left) - movementLeft + "vh";
+        boatMove.style.top = parseFloat(boatMove.style.top) + movementTop + "vh";
+        if (parseFloat(boatMove.style.left) < 5.6) {
+          clearInterval(id);
+          alert(`${boatMove.id} wins!`);
+        }
+        // moving = setInterval(moveBoats, Math.floor((Math.random()*5)+Math.random(0,60)))
+        // let movementLeft = 0.14
+        // let movementTop = 0.07
+        // // function moveBoats() {
+        //     // if (movementLeft <  5.6) {
+        //     // clearInterval(id);
+        //     // } else {
+        //     console.log("hello")
+        //     boatMove.style.top =  parseInt(boatMove.style.top) - movementTop + "vh";
+        //     boatMove.style.left =  parseInt(boatMove.style.left)- movementLeft + "vh";
+        }
     }
 
-}
 
 function moveBoats(boat){
     console.log(boat.style.left)
@@ -84,6 +102,8 @@ function moveBoats(boat){
     }
 }
 
+// let boatblue = document.querySelector("#boatblue")
+let animationInterval = setInterval(animationBox, Math.floor((Math.random()*5)+Math.random(0,60)))
 
 let buttonStart = document.createElement("button")
 buttonStart.textContent = "Start Game";

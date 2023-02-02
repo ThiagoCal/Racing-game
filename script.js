@@ -46,31 +46,33 @@ function createBoats(){
 
 createBoats()
 
-
+let moving;
 function animationBox(){
-    // let boatDivs = document.getElementsByClassName("animate")
-    // for(let boatMove of boatDivs){
-    //     let leftPositon = boatMove.style.left
-    //     let topPosition = boatMove.style.top
-    //     leftPositon -= 1
-    //     topPosition += 0.5
-    // }
-    // // inintialPositionTop += 0.5
-    // // initialPositionLeft -= 1
-    // // boxDiv.style.left = initialPositionLeft + "px";
-    // // boxDiv.style.top = inintialPositionTop + "px";
-    // // // boxDiv.style.transform = "rotate("+initialPosition+"deg)"
-    // // // boxDiv.style.width = initialPosition + "px"
-    // // // console.log(initialPosition)
-    // // if(initialPositionLeft === 90){
-    // //     console.log("hello")
-    // //     clearInterval(animationInterval);
-    // // }
+    let boatDivs = document.querySelectorAll(".animate")
+    for(let boatMove of boatDivs){
+        moving = setInterval(moveBoats, Math.floor((Math.random()*5)+Math.random(0,60)), boatMove)
+    }
+
 }
 
-animationBox()
+function moveBoats(boat){
+    console.log(boat.style.left)
+    let movementLeft = 0.14 
+    let movementTop = 0.07 
+    boat.style.left = boat.style.left - movementLeft
+    boat.style.top = boat.style.top - movementTop
+    if(boat.style.lef < 5.6){
+        clearInterval(moving)
+    }
+}
 
-// let animationInterval = setInterval(animationBox, Math.floor((Math.random()*5)+Math.random(0,60)))
+
+let buttonStart = document.createElement("button")
+buttonStart.textContent = "Start Game";
+buttonStart.addEventListener("click", animationBox)
+let firstSection = document.getElementById("userSection")
+firstSection.appendChild(buttonStart)
+
 
 
 

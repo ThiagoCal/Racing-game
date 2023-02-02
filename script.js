@@ -17,8 +17,11 @@ function animationBox(){
         clearInterval(animationInterval);
     }
 }
-
-
+let form = document.createElement("form")
+let input = document.createElement("input")
+form.appendChild(input)
+let section = document.getElementById("userSection")
+section.appendChild(form)
 
 
 

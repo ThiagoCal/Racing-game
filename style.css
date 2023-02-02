@@ -10,7 +10,7 @@ body{
     height: 100%;
     width: 100%;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: cover;
 }
 
 #animate {
@@ -18,7 +18,7 @@ body{
     height: 120px;
     position: absolute;
     /* background-color: red; */
-    background-image: url(images/smallgreenboat2.png);
+    /* background-image: url(images/smallgreenboat2.png);
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center; */
 }

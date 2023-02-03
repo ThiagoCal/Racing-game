@@ -56,7 +56,7 @@ function createBoats(){
 }
 
 createBoats()
-let moving 
+let moving;
 function animationBox(){
     let boatDivs = document.querySelectorAll(".animate")
     let id = null
@@ -109,6 +109,7 @@ function getRandomArbitrary(min, max) {
 
 let buttonStart = document.createElement("button")
 buttonStart.textContent = "Start Game";
+buttonStart.setAttribute("class","start")
 buttonStart.addEventListener("click", animationBox)
 let firstSection = document.getElementById("userSection")
 firstSection.appendChild(buttonStart)
@@ -117,13 +118,24 @@ let form = document.createElement("form")
 firstSection.appendChild(form)
 for (let boat of boats) {
     let button = document.createElement("button");
+    button.setAttribute("class", "design")
     button.setAttribute("id", boat.color)
     button.textContent = `Select ${boat.name}`;
     button.style.backgroundColor = `${boat.color}`
-    button.style.color = `${boat.letter}`
+        button.style.color = `${boat.letter}`
+    button.addEventListener("mouseenter",function(){
+        button.style.color = `${boat.color}`
+        button.style.backgroundColor = `white`
+    })
+    button.addEventListener("mouseleave",function (){
+        button.style.backgroundColor = `${boat.color}`
+        button.style.color = `${boat.letter}`
+    })
+    
     button.style.padding = "8px"
     button.style.margin = "3px"
     button.style.borderColor = "white"
+
     button.style.borderRadius = "8px"
     button.addEventListener("click", function () {
         if (selectedBoat) {
@@ -139,4 +151,51 @@ for (let boat of boats) {
 function pickBoats(){
 
 }
+let errorMessage = document.createElement("div");
+errorMessage.style.color = "red";
+errorMessage.style.marginTop = "5px";
 
+let betAmount = 0;
+var initialAmount = 100;
+let profit = document.createElement("form")
+let inputBet = document.createElement("input");
+console.log(inputBet.value)
+inputBet.setAttribute("type", "number");
+inputBet.setAttribute("class","input")
+
+let betButton = document.createElement("button");
+betButton.textContent = "Place Bet";
+betButton.setAttribute("class","bet")
+profit.appendChild(inputBet)
+profit.appendChild(betButton)
+console.log(inputBet.value)
+betButton.addEventListener("click", function () {
+  betAmount = parseInt(inputBet.value);
+  
+  if (betAmount > initialAmount) {
+    errorMessage.textContent = "You don't have enough balance";
+    firstSection.appendChild(errorMessage);
+    setTimeout(function (){
+        errorMessage.style.display ="none"
+    },5000)
+    return;
+  } else if (selectedBoat === null) {
+    errorMessage.textContent = "Please select a boat";
+    firstSection.appendChild(errorMessage);
+    setTimeout(function (){
+        errorMessage.style.display ="none"
+    },5000)
+    return;
+  } else {
+    initialAmount -= betAmount;
+  }
+});
+
+firstSection.appendChild(inputBet);
+firstSection.appendChild(betButton);
+let Amount = document.createElement("div")
+Amount.setAttribute("class", "money")
+Amount.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${initialAmount}</sect>`
+firstSection.appendChild(Amount)
+
+  

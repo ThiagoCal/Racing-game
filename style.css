@@ -10,7 +10,12 @@ body{
     height: 100%;
     width: 100%;
     background-repeat: no-repeat;
-    background-position: cover;
+    background-position:center;
+box-sizing: border-box;
+border: 5px;
+border-color:darkgreen;
+border-style: solid;
+    
 }
 
 .animate {
@@ -21,4 +26,14 @@ body{
     /* background-image: url(images/smallgreenboat2.png);
     background-repeat: no-repeat;
     background-position: center; */
+}
+#userSection{
+   background-color: #4ef6df;
+}
+
+button{
+    cursor: pointer;
+}
+#blue{
+    color: cornflowerblue;
 }

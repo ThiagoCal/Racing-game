@@ -45,22 +45,23 @@ function createBoats(){
 }
 
 createBoats()
+
 let moving 
 function animationBox(){
     let boatDivs = document.querySelectorAll(".animate")
     let id = null
     clearInterval(id);
     for(let boatMove of boatDivs){
-        moving = setInterval(movingBoats, getRandomArbitrary(80, 200), boatMove)
+        moving = setInterval(movingBoat, getRandomArbitrary(80, 200), boatMove)
     }
 }
 
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
-  }
+}
 
-function movingBoats(boat){
-    console.log(boat)
+function movingBoat(boat){
+    // console.log(boat)
     let movementLeft = 0.14;
     let movementTop = 0.07;
     boat.style.left = parseFloat(boat.style.left) - movementLeft + "vh";
@@ -72,7 +73,6 @@ function movingBoats(boat){
 }
 
 
-
 let buttonStart = document.createElement("button")
 buttonStart.textContent = "Start Game";
 buttonStart.addEventListener("click", animationBox)
@@ -80,8 +80,98 @@ let firstSection = document.getElementById("userSection")
 firstSection.appendChild(buttonStart)
 
 
+let userAmount = 100;
+
+let amountDiv = document.createElement("div")
+amountDiv.textContent = `$${userAmount}`
+firstSection.appendChild(amountDiv)
+
+let amountBet = document.createElement("input")
+firstSection.appendChild(amountBet)
+
+function createButtonBoats(){
+    for(let boat in boats){
+        boat = boats[boat]
+        // console.log(boat)
+        let boatButton = document.createElement("button")
+        boatButton.setAttribute("class", "btn-boat")
+        boatButton.style.backgroundImage = boat.image
+        boatButton.setAttribute("id", `${boat.name}-btn`)
+        firstSection.appendChild(boatButton)
+    }
+}
+
+createButtonBoats()
 
 
+let userBoatSelection;
+
+let buttonsBoats = document.querySelectorAll(".btn-boat")
+
+function buttonAddEvent(){
+    for(let buttonBoat of buttonsBoats){
+        buttonBoat.addEventListener("click", setUserBoat)
+        console.log(buttonBoat.id)
+    }
+}
+
+function setUserBoat(e){
+    userBoatSelection = e.target.id
+    e.target.className += " active"
+    console.log(e.target.className)
+    console.log(userBoatSelection)
+}
+
+buttonAddEvent()
 
 
+//atribuir uma winning position no objeto de boat
+// verde left 42vh
+// checkwinner dentro do movingBoat
+// se o style do boat for maior ou igual que o winningposition
+
+//Usuario
+//4 botoes pra cada barco
+//variavel global da selecao do barco
+//eventlistener do botao do barco
+//muda a classe todos botaoes tira classe 
+//altera a variavel global
+//coloca a classe no selecionado
+
+//funcao bet
+//ele verifica saldo
+//mensagem de erro se nao tiver
+//return
+//verifica se tem barco selecionado
+//mensagem de erro se nao tiver
+//return
+//ele tira o amount da bet do saldo do do usuario
+// salva o valor da bet numa variavel global
+//disable butoes do barco, disable input, disable bet
+
+
+//checkwinner(boat)
+//checa se o passou da linha de chegada
+// hasBoatWin = positionleft < position winnning
+//if hasBoatWin = false -> return
+//se passou verifica se o barco apostado === do usuario
+// boatWasBet = boat.id == bettedBoat(variavel global do barco selecionado)
+// if boatWasBet
+// showWin()
+// showLose
+//funcao showWin()
+//else showLose()
+
+//funcao showWinnner
+//se for saldo = (bet *1.2) + saldo
+//mostra o quanto ganhou e parabeniza
+//aparece um botao para apostar novamente
+
+//funcao showLose
+//mostra o usuario perdeu
+// aparece a opcao de apostar novamente
+
+//funcao newBet()
+// reseta a posicao dos barcos resetBoats() 
+// habilita os botoes dos barcos e do bet
 

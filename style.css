@@ -4,6 +4,13 @@ body{
     padding: 0;
 }
 
+section{
+    display: block;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
 .container {
     background-image: url(images/background.png);
     position: absolute;
@@ -17,8 +24,10 @@ body{
     width: 100px;
     height: 120px;
     position: absolute;
-    /* background-color: red; */
-    /* background-image: url(images/smallgreenboat2.png);
-    background-repeat: no-repeat;
-    background-position: center; */
+    transition: all;
+}
+
+.btn-boat{
+    width: 100px;
+    height: 120px;
 }

@@ -1,5 +1,3 @@
-let containerBox = document.getElementById("game")
-let boxDiv = document.getElementById("animate")
 
 let boats = [
     { 
@@ -7,7 +5,7 @@ let boats = [
         nameRef: "blueboat",
         image: "url('images/blueboat.png')",
         initialPositionLeft: 90,
-        inintialPositionTop: 14,
+        initialPositionTop: 14,
         positionFinish: 5.6,
         color:"blue",
     },
@@ -16,7 +14,7 @@ let boats = [
         nameRef: "redboat",
         image: "url('images/redboat.png')",
         initialPositionLeft: 98,
-        inintialPositionTop: 20,
+        initialPositionTop: 20,
         positionFinish: 18,
         color:"red",
     },
@@ -25,7 +23,7 @@ let boats = [
         nameRef: "yellowboat",
         image: "url('images/yellowboat.png')",
         initialPositionLeft: 109,
-        inintialPositionTop: 25,
+        initialPositionTop: 25,
         positionFinish: 26,
         color:"yellow",
     },
@@ -34,21 +32,25 @@ let boats = [
         nameRef: "greenboat",
         image: "url('images/greenboat.png')",
         initialPositionLeft: 118,
-        inintialPositionTop: 32,
-        positionFinish: "",
+        initialPositionTop: 32,
+        positionFinish: 39,
         color:"green",
     },
 ]
 
+let containerBox = document.getElementById("game")
+let boxDiv = document.getElementById("animate")
+
+//-----------------------Boat Creation -------------------------------
 function createBoats(){
     for(let boat in boats){
         boat = boats[boat]
-        // console.log(boat)
         let boatDiv = document.createElement("div")
         boatDiv.setAttribute("class", "animate")
         let initialPositionLeft = boat.initialPositionLeft
-        let initialPositionTop = boat.inintialPositionTop
+        let initialPositionTop = boat.initialPositionTop
         boatDiv.style.left = initialPositionLeft + "vh"
+
         boatDiv.style.top = initialPositionTop + "vh"
         boatDiv.style.backgroundImage = boat.image
         boatDiv.setAttribute("id", boat.nameRef)
@@ -59,6 +61,7 @@ function createBoats(){
 createBoats()
 
 
+// --------------------Boat Animation ---------------------------------
 let boatsIntervals = []
 function animationBox(){
     let boatDivs = document.querySelectorAll(".animate")
@@ -73,7 +76,6 @@ function getRandomArbitrary(min, max) {
 }
 
 function movingBoat(boat){
-    // console.log(boat)
     let movementLeft = 0.14;
     let movementTop = 0.07;
     boat.style.left = parseFloat(boat.style.left) - movementLeft + "vh";
@@ -81,12 +83,13 @@ function movingBoat(boat){
     checkwinner(boat)
 }
 
+//---------------------------- User Interaction Section ---------------------------------
+
 let buttonStart = document.createElement("button")
 buttonStart.textContent = "Start Game";
 buttonStart.addEventListener("click", animationBox)
 let firstSection = document.getElementById("userSection")
 firstSection.appendChild(buttonStart)
-
 
 let userAmount = 100;
 let userBet;
@@ -121,7 +124,7 @@ formDiv.appendChild(form)
 let betForm = document.forms.placeBet;
 
 betForm.addEventListener("submit", placeBet)
-
+//--------------Event Bet --------------------------
 function placeBet(e){
     e.preventDefault()
     console.log(e.target.bet.value)
@@ -159,7 +162,6 @@ function placeBet(e){
         betForm.appendChild(errorBoat)
         return;
     }else
-        // betForm.removeChild(lastElementChild);
         amountDiv.textContent = userAmount-betValue
         document.querySelectorAll(".btn-boat").disabled = true;
         document.querySelector("#betInput").disabled = true;
@@ -177,18 +179,7 @@ function clearError(){
     }
 }
 
-//funcao bet
-//ele verifica saldo
-//mensagem de erro se nao tiver
-//return
-//verifica se tem barco selecionado
-//mensagem de erro se nao tiver
-//return
-//ele tira o amount da bet do saldo do do usuario
-// salva o valor da bet numa variavel global
-//disable butoes do barco, disable input, disable bet
-
-
+//---------------Creating Buttons with Boats
 function createButtonBoats(){
     for(let boat in boats){
         boat = boats[boat]
@@ -212,7 +203,7 @@ createButtonBoats()
 let userBoatSelection;
 
 let buttonsBoats = document.querySelectorAll(".btn-boat")
-
+//---------------Event On Boat's Buttons ---------------
 function buttonAddEvent(){
     for(let buttonBoat of buttonsBoats){
         buttonBoat.addEventListener("click", setUserBoat)
@@ -234,21 +225,7 @@ function setUserBoat(e){
     e.target.className += " active"
 }
 
-
-
-//atribuir uma winning position no objeto de boat
-// verde left 42vh
-// checkwinner dentro do movingBoat
-// se o style do boat for maior ou igual que o winningposition
-
-//Usuario
-//4 botoes pra cada barco
-//variavel global da selecao do barco
-//eventlistener do botao do barco
-//muda a classe todos botaoes tira classe 
-//altera a variavel global
-//coloca a classe no selecionado
-
+//----------------------------------- Game Logic -----------------
 
 function checkwinner(boat){
     let boatSettings = boats.find(settings => settings.nameRef === boat.id)
@@ -264,41 +241,66 @@ function checkwinner(boat){
             showWin()
         }
         else{
-            console.log('lose')
+            showLose()
         }
     }
 }
 
 function showWin(){
     let winMessageDiv = document.createElement("div")
+    winMessageDiv.setAttribute("class", "win-div")
     let winMessage = document.createElement("p")
     let userPrize = userBet * 1.2;
     userAmount = userAmount + userPrize;
     amountDiv.textContent = userAmount;
-    winMessage.textContent = `YOU WIN! ${userPrize}! You have now ${userAmount} `
+    winMessage.textContent = `YOU WIN! ${userPrize}! You have now ${userAmount}`
+    let divUserMessage = document.createElement("div")
+    divUserMessage.setAttribute("class", "button-section")
+    let playAgain = document.createElement("button")
+    playAgain.setAttribute("class", "play-again-btn")
+    playAgain.textContent = "Play Again"
+    let reset = document.createElement("button")
+    reset.setAttribute("class", "play-again-btn")
+    reset.textContent = "Reset"
+    divUserMessage.appendChild(playAgain)
+    divUserMessage.appendChild(reset)
+    winMessageDiv.appendChild(winMessage)
+    winMessageDiv.appendChild(divUserMessage)
     firstSection.appendChild(winMessageDiv)
 }
-//checkwinner(boat)
-//checa se o passou da linha de chegada
-// hasBoatWin = positionleft < position winnning
-//if hasBoatWin = false -> return
-//se passou verifica se o barco apostado === do usuario
-// boatWasBet = boat.id == bettedBoat(variavel global do barco selecionado)
-// if boatWasBet
-// showWin()
-// showLose
-//funcao showWin()
-//else showLose()
 
-//funcao showWinnner
-//se for saldo = (bet *1.2) + saldo
-//mostra o quanto ganhou e parabeniza
-//aparece um botao para apostar novamente
 
-//funcao showLose
-//mostra o usuario perdeu
-// aparece a opcao de apostar novamente
+function showLose(){
+    let loseDivMessage = document.createElement("div")
+    loseDivMessage.setAttribute("class", "win-div")
+    let loseMessage = document.createElement("p")
+    userAmount = userAmount.textContent;
+    loseMessage.textContent = `You Lose! You have now ${userAmount}`
+    let divUserMessage = document.createElement("div")
+    divUserMessage.setAttribute("class", "button-section")
+    let playAgain = document.createElement("button")
+    playAgain.setAttribute("class", "play-again-btn")
+    playAgain.textContent = "Play Again"
+    let reset = document.createElement("button")
+    reset.setAttribute("class", "play-again-btn")
+    reset.textContent = "Reset"
+    divUserMessage.appendChild(playAgain)
+    divUserMessage.appendChild(reset)
+    loseDivMessage.appendChild(loseMessage)
+    loseDivMessage.appendChild(divUserMessage)
+    firstSection.appendChild(loseDivMessage)
+}
 
+function newBet(){
+    for(let boat of buttonsBoats){
+        let boatSettings = boats.find(settings => settings.nameRef === boat.id)
+        boat.style.left = boatSettings.initialPositionLeft
+        boat.style.top = boatSettings.initialPositionTop
+    }
+    document.querySelectorAll(".btn-boat").disabled = false;
+    document.querySelector("#betInput").disabled = false;
+    document.querySelector("#submitBtn").disabled = false;
+}
 //funcao newBet()
 // reseta a posicao dos barcos resetBoats() 
 // habilita os botoes dos barcos e do bet

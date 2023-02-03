@@ -3,28 +3,40 @@ let boxDiv = document.getElementById("animate")
 
 let boats = [
     { 
-        name: "blueboat",
+        name: "Blue Boat",
+        nameRef: "blueboat",
         image: "url('images/blueboat.png')",
         initialPositionLeft: 90,
         inintialPositionTop: 14,
+        positionFinish: 5.6,
+        color:"blue",
     },
     { 
-        name: "redboat",
+        name: "Red Boat",
+        nameRef: "redboat",
         image: "url('images/redboat.png')",
         initialPositionLeft: 98,
         inintialPositionTop: 20,
+        positionFinish: 18,
+        color:"red",
     },
     { 
-        name: "yellowboat",
+        name: "Yellow Boat",
+        nameRef: "yellowboat",
         image: "url('images/yellowboat.png')",
         initialPositionLeft: 109,
         inintialPositionTop: 25,
+        positionFinish: 26,
+        color:"yellow",
     },
     { 
-        name: "greenboat",
+        name: "Green Boat",
+        nameRef: "greenboat",
         image: "url('images/greenboat.png')",
         initialPositionLeft: 118,
         inintialPositionTop: 32,
+        positionFinish: "",
+        color:"green",
     },
 ]
 
@@ -39,20 +51,20 @@ function createBoats(){
         boatDiv.style.left = initialPositionLeft + "vh"
         boatDiv.style.top = initialPositionTop + "vh"
         boatDiv.style.backgroundImage = boat.image
-        boatDiv.setAttribute("id", boat.name)
+        boatDiv.setAttribute("id", boat.nameRef)
         containerBox.appendChild(boatDiv)
     }
 }
 
 createBoats()
 
-let moving 
+
+let boatsIntervals = []
 function animationBox(){
     let boatDivs = document.querySelectorAll(".animate")
-    let id = null
-    clearInterval(id);
     for(let boatMove of boatDivs){
-        moving = setInterval(movingBoat, getRandomArbitrary(80, 200), boatMove)
+        const interval = setInterval(movingBoat, getRandomArbitrary(80, 200), boatMove)
+        boatsIntervals.push(interval)
     }
 }
 
@@ -66,12 +78,8 @@ function movingBoat(boat){
     let movementTop = 0.07;
     boat.style.left = parseFloat(boat.style.left) - movementLeft + "vh";
     boat.style.top = parseFloat(boat.style.top) + movementTop + "vh";
-    if (parseFloat(boat.style.left) < 5.6) {
-        clearInterval(moving);
-    //   alert(`${boatMove.id} wins!`);
-    }
+    checkwinner(boat)
 }
-
 
 let buttonStart = document.createElement("button")
 buttonStart.textContent = "Start Game";
@@ -81,13 +89,105 @@ firstSection.appendChild(buttonStart)
 
 
 let userAmount = 100;
+let userBet;
 
 let amountDiv = document.createElement("div")
 amountDiv.textContent = `$${userAmount}`
 firstSection.appendChild(amountDiv)
 
+let formDiv = document.createElement("div")
+formDiv.setAttribute("class", "form-div")
+firstSection.appendChild(formDiv)
+
+let form = document.createElement("form")
+form.setAttribute("name", "placeBet")
 let amountBet = document.createElement("input")
-firstSection.appendChild(amountBet)
+amountBet.setAttribute("type", "text");
+amountBet.setAttribute("name", "bet");
+amountBet.setAttribute("class", "bet-input");
+amountBet.setAttribute("id", "betInput");
+amountBet.setAttribute("placeholder", "");
+form.appendChild(amountBet)
+
+let betBtn = document.createElement("input")
+betBtn.setAttribute("type", "submit");
+betBtn.setAttribute("class", "submit-btn");
+betBtn.setAttribute("id", "submitBtn");
+betBtn.setAttribute("value", "Submit");
+form.appendChild(betBtn)
+
+formDiv.appendChild(form)
+
+let betForm = document.forms.placeBet;
+
+betForm.addEventListener("submit", placeBet)
+
+function placeBet(e){
+    e.preventDefault()
+    console.log(e.target.bet.value)
+    userBet = e.target.bet.value
+    let betValue = e.target.bet.value
+    console.log(userBoatSelection)
+    if(betValue > userAmount){
+        console.log("hello bet invalid")
+        let errorBet = document.createElement("div")
+        errorBet.setAttribute("id", "errorDiv")
+        let errorBetP = document.createElement("p")
+        errorBetP.setAttribute("class", "errorMessage")
+        errorBetP.textContent = "Bet invalid - bet is higher than your amount"
+        errorBet.appendChild(errorBetP)
+        betForm.appendChild(errorBet)
+        return;
+    }else if(betValue === ""){
+        console.log("hello bet invalid")
+        let errorBet = document.createElement("div")
+        errorBet.setAttribute("id", "errorDiv")
+        let errorBetP = document.createElement("p")
+        errorBetP.setAttribute("class", "errorMessage")
+        errorBetP.textContent = "Bet invalid - please set an amount"
+        errorBet.appendChild(errorBetP)
+        betForm.appendChild(errorBet)
+        return;
+    }
+    else if(userBoatSelection === "" || userBoatSelection === undefined){
+        let errorBoat = document.createElement("div")
+        errorBoat.setAttribute("id", "errorDiv")
+        let errorBoatP = document.createElement("p")
+        errorBoatP.setAttribute("class", "errorMessage")
+        errorBoatP.textContent = "Bet invalid - please choose a boat"
+        errorBoat.appendChild(errorBoatP)
+        betForm.appendChild(errorBoat)
+        return;
+    }else
+        // betForm.removeChild(lastElementChild);
+        amountDiv.textContent = userAmount-betValue
+        document.querySelectorAll(".btn-boat").disabled = true;
+        document.querySelector("#betInput").disabled = true;
+        document.querySelector("#submitBtn").disabled = true;
+        return userAmount
+}
+
+let inputBet = document.getElementById("betInput")
+inputBet.addEventListener("change", clearError)
+function clearError(){
+    let erroDiv = document.getElementById("errorDiv")
+    let errorMessage = document.querySelector(".errorMessage")
+    if(errorMessage !== null){
+        erroDiv.removeChild(errorMessage);
+    }
+}
+
+//funcao bet
+//ele verifica saldo
+//mensagem de erro se nao tiver
+//return
+//verifica se tem barco selecionado
+//mensagem de erro se nao tiver
+//return
+//ele tira o amount da bet do saldo do do usuario
+// salva o valor da bet numa variavel global
+//disable butoes do barco, disable input, disable bet
+
 
 function createButtonBoats(){
     for(let boat in boats){
@@ -96,7 +196,12 @@ function createButtonBoats(){
         let boatButton = document.createElement("button")
         boatButton.setAttribute("class", "btn-boat")
         boatButton.style.backgroundImage = boat.image
-        boatButton.setAttribute("id", `${boat.name}-btn`)
+        boatButton.setAttribute("id", `${boat.nameRef}-btn`)
+        boatButton.style.backgroundColor = `${boat.color}`
+        boatButton.style.color = `${boat.letter}`
+        boatButton.style.padding = "8px"
+        boatButton.style.margin = "3px"
+        boatButton.style.borderRadius = "8px"    
         firstSection.appendChild(boatButton)
     }
 }
@@ -115,14 +220,20 @@ function buttonAddEvent(){
     }
 }
 
-function setUserBoat(e){
-    userBoatSelection = e.target.id
-    e.target.className += " active"
-    console.log(e.target.className)
-    console.log(userBoatSelection)
+buttonAddEvent()
+
+function removeBtnBoatClass(){
+    for(let boat of buttonsBoats){
+        boat.classList.remove("active")
+    }
 }
 
-buttonAddEvent()
+function setUserBoat(e){
+    userBoatSelection = e.target.id
+    removeBtnBoatClass()
+    e.target.className += " active"
+}
+
 
 
 //atribuir uma winning position no objeto de boat
@@ -138,18 +249,35 @@ buttonAddEvent()
 //altera a variavel global
 //coloca a classe no selecionado
 
-//funcao bet
-//ele verifica saldo
-//mensagem de erro se nao tiver
-//return
-//verifica se tem barco selecionado
-//mensagem de erro se nao tiver
-//return
-//ele tira o amount da bet do saldo do do usuario
-// salva o valor da bet numa variavel global
-//disable butoes do barco, disable input, disable bet
 
+function checkwinner(boat){
+    let boatSettings = boats.find(settings => settings.nameRef === boat.id)
 
+    console.log(boat.style.left)
+    let hasBoatWin = (boat.style.left.replace('vh',"") > boatSettings.positionFinish)
+    console.log(hasBoatWin)
+    if(hasBoatWin === true){
+        return;
+    } else{
+        boatsIntervals.forEach(interval => clearInterval(interval))
+        if(boat.id === userBoatSelection){
+            showWin()
+        }
+        else{
+            console.log('lose')
+        }
+    }
+}
+
+function showWin(){
+    let winMessageDiv = document.createElement("div")
+    let winMessage = document.createElement("p")
+    let userPrize = userBet * 1.2;
+    userAmount = userAmount + userPrize;
+    amountDiv.textContent = userAmount;
+    winMessage.textContent = `YOU WIN! ${userPrize}! You have now ${userAmount} `
+    firstSection.appendChild(winMessageDiv)
+}
 //checkwinner(boat)
 //checa se o passou da linha de chegada
 // hasBoatWin = positionleft < position winnning

@@ -31,3 +31,7 @@ section{
     width: 100px;
     height: 120px;
 }
+
+.active{
+    border: 1px solid darkblue
+}

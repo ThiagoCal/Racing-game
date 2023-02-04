@@ -40,6 +40,7 @@ let boats = [
 let containerBox = document.getElementById("game")
 let boxDiv = document.getElementById("animate")
 
+
 // create Game Background
 
 let divGameBackground = document.createElement("div")
@@ -341,3 +342,4 @@ function newGame(){
     document.querySelector("#betInput").value = "";
     document.querySelector("#submitBtn").disabled = false;
 }
+

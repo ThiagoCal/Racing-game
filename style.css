@@ -1,3 +1,7 @@
+*{
+    font-family: 'Press Start 2P', cursive;
+    font-size: smaller;
+}
 body{
     box-sizing: border-box;
     margin: 0;
@@ -5,10 +9,8 @@ body{
 }
 
 section{
-    /* display: flex; */
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
+    display: flex;
+    padding: 5em;
 }
 
 
@@ -19,7 +21,11 @@ section{
     height: 100%;
     width: 100%;
     background-repeat: no-repeat;
-    background-position: cover;
+    background-position:center;
+    box-sizing: border-box;
+    border: 5px;
+    border-color:darkgreen;
+    border-style: solid;
 }
 
 .animate {
@@ -31,11 +37,16 @@ section{
 
 .btn-boat{
     width: 100px;
-    height: 120px;
+    height: 50px;
+    transition-duration: 0.4s;
+}
+
+.btn-boat:hover{
+    background-color: white !important;
 }
 
 .active{
-    border: 1px solid darkblue
+ filter: brightness(70%);
 }
 
 button{
@@ -46,26 +57,75 @@ button{
     border: 5px;
     border-style: solid;
     border-color: black;
-    width: 7%;
+    width: 100px;
     background-color: rgb(177, 152, 8);
     font-size: medium;
-    /* display: inline-block;
-    margin-left: 100px; */
 }
+
 .start{
+    display: flex;
+    align-self: center;
     background-color: gold;
     border: none;
     color: white;
     padding: 16px 32px;
     text-align: center;
     text-decoration: none;
-    /* display: inline-block; */
     font-size: 16px;
-    /* margin: 4px 2px;
     transition-duration: 0.4s;
-    margin-left: 40%; */
 }
+
 .start:hover{
     background-color: white;
     color: gold;
+}
+
+.userStyle{
+    display: flex;
+    flex-direction: column;
+   background-color: #4ef6df;
+}
+
+#boatButtonDiv{
+    display: flex;
+    flex-direction: row;
+   justify-content: center;
+}
+
+.submit-btn{
+    background-color: black;
+    color: white;
+    padding: 8px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.submit-btn:hover{
+    color: black;
+    background-color: white;
+}
+
+.bet-input{
+    border: 3px;
+    border-color: black;
+    border-style: solid;
+    padding: 7px;
+    font-size: 12px;
+}  
+
+.moneyDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+#form-id{
+    display: flex;
+    flex-direction: column;
+}
+
+.errorMessage{
+    color: red;
+    font-size: 8px;
 }

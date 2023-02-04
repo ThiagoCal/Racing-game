@@ -1,18 +1,3 @@
-// left: 44em;
-// top: 9em;
-// end : 4em;
-
-//    left: 48em;
-// top: 12em;
-// end: 8em
-
-// left: 53em
-//     top: 15em;
-// end: 13
-
-// left: 57em;
-// top: 18em;
-//end : 17em
 let boats = [
     { 
         name: "Blue Boat",
@@ -110,17 +95,23 @@ firstSection.appendChild(buttonStart)
 let userAmount = 100;
 let userBet;
 
+let moneyDiv = document.createElement("div")
+moneyDiv.setAttribute("class","moneyDiv")
+moneyDiv.setAttribute("id","moneyDiv")
+firstSection.appendChild(moneyDiv)
+
 let amountDiv = document.createElement("div")
 amountDiv.setAttribute("class", "money");
-amountDiv.textContent = `$${userAmount}`
-firstSection.appendChild(amountDiv)
+amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`
+moneyDiv.appendChild(amountDiv)
 
 let formDiv = document.createElement("div")
 formDiv.setAttribute("class", "form-div")
-firstSection.appendChild(formDiv)
+moneyDiv.appendChild(formDiv)
 
 let form = document.createElement("form")
 form.setAttribute("name", "placeBet")
+form.setAttribute("id","form-id")
 let amountBet = document.createElement("input")
 amountBet.setAttribute("type", "text");
 amountBet.setAttribute("name", "bet");
@@ -133,7 +124,7 @@ let betBtn = document.createElement("input")
 betBtn.setAttribute("type", "submit");
 betBtn.setAttribute("class", "submit-btn");
 betBtn.setAttribute("id", "submitBtn");
-betBtn.setAttribute("value", "Submit");
+betBtn.setAttribute("value", "Place Bet");
 form.appendChild(betBtn)
 
 formDiv.appendChild(form)
@@ -141,6 +132,9 @@ formDiv.appendChild(form)
 let betForm = document.forms.placeBet;
 
 betForm.addEventListener("submit", placeBet)
+let boatButtonDiv = document.createElement("div")
+boatButtonDiv.setAttribute("id","boatButtonDiv")
+firstSection.appendChild(boatButtonDiv)
 //--------------Event Bet --------------------------
 function placeBet(e){
     e.preventDefault()
@@ -176,9 +170,9 @@ function placeBet(e){
         errorBoat.appendChild(errorBoatP)
         betForm.appendChild(errorBoat)
         return;
-    }else
+    }
         userAmount = userAmount - betValue
-        amountDiv.textContent = userAmount
+        amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`
         document.querySelectorAll(".btn-boat").disabled = true;
         document.querySelector("#betInput").disabled = true;
         document.querySelector("#submitBtn").disabled = true;
@@ -201,15 +195,17 @@ function createButtonBoats(){
         boat = boats[boat]
         // console.log(boat)
         let boatButton = document.createElement("button")
+        let divButton = document.querySelector("#boatButtonDiv")
         boatButton.setAttribute("class", "btn-boat")
-        boatButton.style.backgroundImage = boat.image
+        boatButton.style.background = `${boat.image} no-repeat center center`;
+        boatButton.style.backgroundSize="50% 90%";
         boatButton.setAttribute("id", `${boat.nameRef}-btn`)
         boatButton.style.backgroundColor = `${boat.color}`
         boatButton.style.color = `${boat.letter}`
         boatButton.style.padding = "8px"
         boatButton.style.margin = "3px"
         boatButton.style.borderRadius = "8px"    
-        firstSection.appendChild(boatButton)
+        divButton.appendChild(boatButton)
     }
 }
 
@@ -321,22 +317,3 @@ function newGame(){
     document.querySelector("#betInput").value = "";
     document.querySelector("#submitBtn").disabled = false;
 }
-//funcao newBet()
-// reseta a posicao dos barcos resetBoats() 
-// habilita os botoes dos barcos e do bet
-
-// left: 44em;
-// top: 9em;
-// end : 4em;
-
-//    left: 48em;
-// top: 12em;
-// end: 8em
-
-// left: 53em
-//     top: 15em;
-// end: 13
-
-// left: 57em;
-// top: 18em;
-//end : 17em

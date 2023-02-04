@@ -40,6 +40,16 @@ let boats = [
 let containerBox = document.getElementById("game")
 let boxDiv = document.getElementById("animate")
 
+// create Game Background
+
+let divGameBackground = document.createElement("div")
+divGameBackground.setAttribute("class", "div-bg")
+containerBox.appendChild(divGameBackground)
+// let imageGameBackground = document.createElement("img")
+// imageGameBackground.setAttribute("class", "img-bg")
+// let imageBg = "images/background.png"
+// imageGameBackground.setAttribute("src", imageBg )
+// divGameBackground.appendChild(imageGameBackground)
 //-----------------------Boat Creation -------------------------------
 function createBoats(){
     for(let boat in boats){
@@ -53,12 +63,11 @@ function createBoats(){
         boatDiv.style.top = initialPositionTop + "em"
         boatDiv.style.backgroundImage = boat.image
         boatDiv.setAttribute("id", boat.nameRef)
-        containerBox.appendChild(boatDiv)
+        divGameBackground.appendChild(boatDiv)
     }
 }
 
 createBoats()
-
 
 // --------------------Boat Animation ---------------------------------
 let boatsIntervals = []
@@ -141,13 +150,15 @@ function placeBet(e){
     
     userBet = e.target.bet.value
     let betValue = e.target.bet.value
-    console.log(userBoatSelection)
     if(betValue > userAmount){
         let errorBet = document.createElement("div")
         errorBet.setAttribute("id", "errorDiv")
         let errorBetP = document.createElement("p")
         errorBetP.setAttribute("class", "errorMessage")
         errorBetP.textContent = "Bet invalid - bet is higher than your amount"
+        document.querySelectorAll('.errorMessage').forEach(elem => {
+            elem.remove();
+        });
         errorBet.appendChild(errorBetP)
         betForm.appendChild(errorBet)
         return;
@@ -157,6 +168,9 @@ function placeBet(e){
         let errorBetP = document.createElement("p")
         errorBetP.setAttribute("class", "errorMessage")
         errorBetP.textContent = "Bet invalid - please set an amount"
+        document.querySelectorAll('.errorMessage').forEach(elem => {
+            elem.remove();
+        });
         errorBet.appendChild(errorBetP)
         betForm.appendChild(errorBet)
         return;
@@ -167,13 +181,21 @@ function placeBet(e){
         let errorBoatP = document.createElement("p")
         errorBoatP.setAttribute("class", "errorMessage")
         errorBoatP.textContent = "Bet invalid - please choose a boat"
+        document.querySelectorAll('.errorMessage').forEach(elem => {
+            elem.remove();
+        });
         errorBoat.appendChild(errorBoatP)
         betForm.appendChild(errorBoat)
         return;
     }
         userAmount = userAmount - betValue
         amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`
-        document.querySelectorAll(".btn-boat").disabled = true;
+        document.querySelectorAll('.btn-boat').forEach(elem => {
+            elem.disabled = true;
+          });
+        document.querySelectorAll('.errorMessage').forEach(elem => {
+            elem.remove();
+        });
         document.querySelector("#betInput").disabled = true;
         document.querySelector("#submitBtn").disabled = true;
         return userAmount
@@ -182,10 +204,10 @@ function placeBet(e){
 let inputBet = document.getElementById("betInput")
 inputBet.addEventListener("change", clearError)
 function clearError(){
-    let erroDiv = document.getElementById("errorDiv")
+    let errorDiv = document.getElementById("errorDiv")
     let errorMessage = document.querySelector(".errorMessage")
-    if(errorMessage !== null){
-        erroDiv.removeChild(errorMessage);
+    if(errorMessage !== null && errorDiv.firstChild){
+        errorDiv.removeChild(errorMessage);
     }
 }
 
@@ -240,8 +262,10 @@ function setUserBoat(e){
 //----------------------------------- Game Logic -----------------
 
 function checkwinner(boat){
+    console.log(userBoatSelection)
     let boatSettings = boats.find(settings => settings.nameRef === boat.id)
     let userBoatSelected = userBoatSelection.replace("-btn","")
+    console.log(userBoatSelected)
     let hasBoatWin = (boat.style.left.replace('em',"") > boatSettings.positionFinish)
     // console.log(hasBoatWin)
     if(hasBoatWin === true){

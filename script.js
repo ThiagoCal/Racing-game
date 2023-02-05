@@ -307,8 +307,8 @@ function enableButtonBoats(){
 }
 
 function setUserBoat(e){
-    userBoatSelection = e.target.id;
     removeBtnBoatClass();
+    userBoatSelection = e.target.id;
     e.target.className += " active";
 }
 
@@ -443,7 +443,6 @@ function newGame(){
             boat.style.left = boatSettings.initialPositionLeft + "px";
             boat.style.top = boatSettings.initialPositionTop + "px";
         }
-    // createUserSection()
     removeBtnBoatClass()
     userBoatSelection = "";
     
@@ -469,7 +468,7 @@ function reset(){
     userBoatSelection = "";
     let amount = document.querySelector("#amount")
     amount.textContent = userAmount;
-    // createGameBg();
+    
     let boatsDiv = document.querySelectorAll(".animateDiv");
     for(let boat of boatsDiv){
             let boatSettings = boats.find(settings => settings.nameRef === boat.id)
@@ -478,7 +477,6 @@ function reset(){
             boat.style.left = boatSettings.initialPositionLeft + "px";
             boat.style.top = boatSettings.initialPositionTop + "px";
         }
-    // createUserSection()
     removeBtnBoatClass()
     enableButtonBoats()
     document.querySelector("#betInput").disabled = false;

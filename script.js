@@ -126,10 +126,16 @@ function createUserSection(){
     document.querySelector(".start").disabled = true;
 
 
+    let allsets = document.createElement("div");
+    allsets.setAttribute("id", "allUserSets")
+    firstSection.appendChild(allsets)
+
+    let allUserSets = document.querySelector("#allUserSets")
+
     let moneyDiv = document.createElement("div");
     moneyDiv.setAttribute("class","moneyDiv");
     moneyDiv.setAttribute("id","moneyDiv");
-    firstSection.appendChild(moneyDiv);
+    allUserSets.appendChild(moneyDiv);
 
     let amountDiv = document.createElement("div");
     amountDiv.setAttribute("class", "money");
@@ -165,7 +171,7 @@ function createUserSection(){
     betForm.addEventListener("submit", placeBet);
     let boatButtonDiv = document.createElement("div");
     boatButtonDiv.setAttribute("id","boatButtonDiv");
-    firstSection.appendChild(boatButtonDiv);
+    allsets.appendChild(boatButtonDiv);
 
     
 }

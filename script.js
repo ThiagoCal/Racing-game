@@ -113,7 +113,6 @@ function movingBoat(boat){
 
 //---------------------------- User Interaction Section ---------------------------------
 
-
 function createUserSection(){ 
     let buttonStart = document.createElement("button");
 
@@ -166,7 +165,6 @@ function createUserSection(){
     boatButtonDiv.setAttribute("id","boatButtonDiv");
     firstSection.appendChild(boatButtonDiv);
 }
-
 
 //--------------Event Bet --------------------------
 
@@ -259,8 +257,6 @@ function createButtonBoats(){
         divButton.appendChild(boatButton);
     }
 }
-
-// createButtonBoats()
 
 //---------------Event On Boat's Buttons ---------------
 function buttonAddEvent(){

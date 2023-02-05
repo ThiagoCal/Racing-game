@@ -2,81 +2,101 @@ let boats = [
     { 
         name: "Blue Boat",
         nameRef: "blueboat",
-        image: "url('images/blueboat.png')",
-        initialPositionLeft: 44,
-        initialPositionTop: 9,
-        positionFinish: 6,
-        color:"blue",
+        image: "images/blueboat.png",
+        initialPositionLeft: 90,
+        initialPositionTop: 14,
+        positionFinish: 5.6,
+        color: "blue",
     },
     { 
         name: "Red Boat",
         nameRef: "redboat",
-        image: "url('images/redboat.png')",
-        initialPositionLeft: 48,
-        initialPositionTop: 12,
-        positionFinish: 10,
+        image: "images/redboat.png",
+        initialPositionLeft: 98,
+        initialPositionTop: 20,
+        positionFinish: 18,
         color:"red",
     },
     { 
         name: "Yellow Boat",
         nameRef: "yellowboat",
-        image: "url('images/yellowboat.png')",
-        initialPositionLeft: 53,
-        initialPositionTop: 15,
-        positionFinish: 15,
+        image: "images/yellowboat.png",
+        initialPositionLeft: 109,
+        initialPositionTop: 25,
+        positionFinish: 26,
         color:"yellow",
     },
     { 
         name: "Green Boat",
         nameRef: "greenboat",
-        image: "url('images/greenboat.png')",
-        initialPositionLeft: 57,
-        initialPositionTop: 18,
-        positionFinish: 19,
+        image: "images/greenboat.png",
+        initialPositionLeft: 118,
+        initialPositionTop: 32,
+        positionFinish: 39,
         color:"green",
     },
 ]
 
-let containerBox = document.getElementById("game")
-let boxDiv = document.getElementById("animate")
+// ----------------------------- Create Game Background
+let containerBox = document.getElementById("game");
+let boxDiv = document.getElementById("animateDiv");
+let userAmount = 100;
+let userBet;
+function createGameBg(){ 
+    
+    createUserSection()
+    createButtonBoats()
+    
+    let divEncapsuleBG = document.createElement("div");
+    divEncapsuleBG.setAttribute("class", "capsule-bg");
+    containerBox.appendChild(divEncapsuleBG);
+    
+    let divGameBackground = document.createElement("div");
+    divGameBackground.setAttribute("class", "div-bg");
+    divEncapsuleBG.appendChild(divGameBackground);
+    
+    let imageGameBackground = document.createElement("img");
+    imageGameBackground.setAttribute("class", "img-bg");
+    let imageBg = "images/background.png";
+    imageGameBackground.setAttribute("src", imageBg );
+    divGameBackground.appendChild(imageGameBackground);
+    createBoats()
+}
 
+createGameBg();
 
-// create Game Background
-
-let divGameBackground = document.createElement("div")
-divGameBackground.setAttribute("class", "div-bg")
-containerBox.appendChild(divGameBackground)
-// let imageGameBackground = document.createElement("img")
-// imageGameBackground.setAttribute("class", "img-bg")
-// let imageBg = "images/background.png"
-// imageGameBackground.setAttribute("src", imageBg )
-// divGameBackground.appendChild(imageGameBackground)
 //-----------------------Boat Creation -------------------------------
+
 function createBoats(){
     for(let boat in boats){
+        let divGameBackground = document.querySelector(".div-bg");
         boat = boats[boat]
-        let boatDiv = document.createElement("div")
-        boatDiv.setAttribute("class", "animate")
-        let initialPositionLeft = boat.initialPositionLeft
-        let initialPositionTop = boat.initialPositionTop
-        boatDiv.style.left = initialPositionLeft + "em"
-
-        boatDiv.style.top = initialPositionTop + "em"
-        boatDiv.style.backgroundImage = boat.image
-        boatDiv.setAttribute("id", boat.nameRef)
-        divGameBackground.appendChild(boatDiv)
+        let boatDiv = document.createElement("div");
+        boatDiv.setAttribute("class", "animateDiv");
+        let initialPositionLeft = boat.initialPositionLeft;
+        let initialPositionTop = boat.initialPositionTop;
+        boatDiv.style.left = initialPositionLeft + "vh";
+        boatDiv.style.top = initialPositionTop + "vh";
+        let boatImg = document.createElement("img");
+        boatImg.setAttribute("class", "boat-img");
+        boatImg.setAttribute("src", boat.image );
+        // boatDiv.style.backgroundImage = boat.image
+        divGameBackground.appendChild(boatDiv);
+        boatDiv.appendChild(boatImg);
+        boatDiv.setAttribute("id", boat.nameRef);
     }
 }
 
-createBoats()
+// createBoats()
 
 // --------------------Boat Animation ---------------------------------
+
 let boatsIntervals = []
 function animationBox(){
-    let boatDivs = document.querySelectorAll(".animate")
+    let boatDivs = document.querySelectorAll(".animateDiv");
     for(let boatMove of boatDivs){
-        const interval = setInterval(movingBoat, getRandomArbitrary(20, 80), boatMove)
-        boatsIntervals.push(interval)
+        const interval = setInterval(movingBoat, getRandomArbitrary(20, 80), boatMove);
+        boatsIntervals.push(interval);
     }
 }
 
@@ -87,106 +107,114 @@ function getRandomArbitrary(min, max) {
 function movingBoat(boat){
     let movementLeft = 0.14;
     let movementTop = 0.07;
-    boat.style.left = parseFloat(boat.style.left) - movementLeft + "em";
-    boat.style.top = parseFloat(boat.style.top) + movementTop + "em";
-    checkwinner(boat)
+    boat.style.left = parseFloat(boat.style.left) - movementLeft + "vh";
+    boat.style.top = parseFloat(boat.style.top) + movementTop + "vh";
+    checkwinner(boat);
 }
 
 //---------------------------- User Interaction Section ---------------------------------
 
-let buttonStart = document.createElement("button")
 
-buttonStart.textContent = "Start Game";
-buttonStart.setAttribute("class","start")
-buttonStart.addEventListener("click", animationBox)
-let firstSection = document.getElementById("userSection")
-firstSection.appendChild(buttonStart)
+function createUserSection(){ 
+    let buttonStart = document.createElement("button");
 
-let userAmount = 100;
-let userBet;
+    buttonStart.textContent = "Start Game";
+    buttonStart.setAttribute("class","start")
+    buttonStart.addEventListener("click", animationBox);
+    let firstSection = document.getElementById("userSection");
+    firstSection.appendChild(buttonStart);
+    document.querySelector(".start").disabled = true;
 
-let moneyDiv = document.createElement("div")
-moneyDiv.setAttribute("class","moneyDiv")
-moneyDiv.setAttribute("id","moneyDiv")
-firstSection.appendChild(moneyDiv)
 
-let amountDiv = document.createElement("div")
-amountDiv.setAttribute("class", "money");
-amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`
-moneyDiv.appendChild(amountDiv)
+    let moneyDiv = document.createElement("div");
+    moneyDiv.setAttribute("class","moneyDiv");
+    moneyDiv.setAttribute("id","moneyDiv");
+    firstSection.appendChild(moneyDiv);
 
-let formDiv = document.createElement("div")
-formDiv.setAttribute("class", "form-div")
-moneyDiv.appendChild(formDiv)
+    let amountDiv = document.createElement("div");
+    amountDiv.setAttribute("class", "money");
+    amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`;
+    moneyDiv.appendChild(amountDiv);
 
-let form = document.createElement("form")
-form.setAttribute("name", "placeBet")
-form.setAttribute("id","form-id")
-let amountBet = document.createElement("input")
-amountBet.setAttribute("type", "text");
-amountBet.setAttribute("name", "bet");
-amountBet.setAttribute("class", "bet-input");
-amountBet.setAttribute("id", "betInput");
-amountBet.setAttribute("placeholder", "");
-form.appendChild(amountBet)
+    let formDiv = document.createElement("div");
+    formDiv.setAttribute("class", "form-div");
+    moneyDiv.appendChild(formDiv);
 
-let betBtn = document.createElement("input")
-betBtn.setAttribute("type", "submit");
-betBtn.setAttribute("class", "submit-btn");
-betBtn.setAttribute("id", "submitBtn");
-betBtn.setAttribute("value", "Place Bet");
-form.appendChild(betBtn)
+    let form = document.createElement("form");
+    form.setAttribute("name", "placeBet");
+    form.setAttribute("id","form-id");
+    let amountBet = document.createElement("input")
+    amountBet.setAttribute("type", "text");
+    amountBet.setAttribute("name", "bet");
+    amountBet.setAttribute("class", "bet-input");
+    amountBet.setAttribute("id", "betInput");
+    amountBet.setAttribute("placeholder", "");
+    form.appendChild(amountBet);
 
-formDiv.appendChild(form)
+    let betBtn = document.createElement("input")
+    betBtn.setAttribute("type", "submit");
+    betBtn.setAttribute("class", "submit-btn");
+    betBtn.setAttribute("id", "submitBtn");
+    betBtn.setAttribute("value", "Place Bet");
+    form.appendChild(betBtn);
 
-let betForm = document.forms.placeBet;
+    formDiv.appendChild(form)
 
-betForm.addEventListener("submit", placeBet)
-let boatButtonDiv = document.createElement("div")
-boatButtonDiv.setAttribute("id","boatButtonDiv")
-firstSection.appendChild(boatButtonDiv)
+    let betForm = document.forms.placeBet;
+
+    betForm.addEventListener("submit", placeBet);
+    let boatButtonDiv = document.createElement("div");
+    boatButtonDiv.setAttribute("id","boatButtonDiv");
+    firstSection.appendChild(boatButtonDiv);
+
+    
+}
+
+
 //--------------Event Bet --------------------------
+
 function placeBet(e){
     e.preventDefault()
-    
-    userBet = e.target.bet.value
-    let betValue = e.target.bet.value
+    let betForm = document.forms.placeBet;
+    let amountDiv = document.querySelector(".money");
+    userBet = e.target.bet.value;
+    let betValue = e.target.bet.value;
     if(betValue > userAmount){
-        let errorBet = document.createElement("div")
-        errorBet.setAttribute("id", "errorDiv")
-        let errorBetP = document.createElement("p")
-        errorBetP.setAttribute("class", "errorMessage")
-        errorBetP.textContent = "Bet invalid - bet is higher than your amount"
+        let errorBet = document.createElement("div");
+        errorBet.setAttribute("id", "errorDiv");
+        let errorBetP = document.createElement("p");
+        errorBetP.setAttribute("class", "errorMessage");
+        errorBetP.textContent = "Bet invalid - bet is higher than your amount";
         document.querySelectorAll('.errorMessage').forEach(elem => {
             elem.remove();
         });
-        errorBet.appendChild(errorBetP)
-        betForm.appendChild(errorBet)
+        errorBet.appendChild(errorBetP);
+        betForm.appendChild(errorBet);
         return;
     }else if(betValue === ""){
-        let errorBet = document.createElement("div")
-        errorBet.setAttribute("id", "errorDiv")
-        let errorBetP = document.createElement("p")
-        errorBetP.setAttribute("class", "errorMessage")
-        errorBetP.textContent = "Bet invalid - please set an amount"
+        let errorBet = document.createElement("div");
+        errorBet.setAttribute("id", "errorDiv");
+        let errorBetP = document.createElement("p");
+        errorBetP.setAttribute("class", "errorMessage");
+        errorBetP.textContent = "Bet invalid - please set an amount";
         document.querySelectorAll('.errorMessage').forEach(elem => {
             elem.remove();
         });
-        errorBet.appendChild(errorBetP)
-        betForm.appendChild(errorBet)
+        errorBet.appendChild(errorBetP);
+        betForm.appendChild(errorBet);
         return;
     }
     else if(userBoatSelection === "" || userBoatSelection === undefined){
-        let errorBoat = document.createElement("div")
-        errorBoat.setAttribute("id", "errorDiv")
-        let errorBoatP = document.createElement("p")
-        errorBoatP.setAttribute("class", "errorMessage")
-        errorBoatP.textContent = "Bet invalid - please choose a boat"
+        let errorBoat = document.createElement("div");
+        errorBoat.setAttribute("id", "errorDiv");
+        let errorBoatP = document.createElement("p");
+        errorBoatP.setAttribute("class", "errorMessage");
+        errorBoatP.textContent = "Bet invalid - please choose a boat";
         document.querySelectorAll('.errorMessage').forEach(elem => {
             elem.remove();
         });
-        errorBoat.appendChild(errorBoatP)
-        betForm.appendChild(errorBoat)
+        errorBoat.appendChild(errorBoatP);
+        betForm.appendChild(errorBoat);
         return;
     }
         userAmount = userAmount - betValue
@@ -199,50 +227,52 @@ function placeBet(e){
         });
         document.querySelector("#betInput").disabled = true;
         document.querySelector("#submitBtn").disabled = true;
+        document.querySelector(".start").disabled = false;
         return userAmount
 }
 
-let inputBet = document.getElementById("betInput")
-inputBet.addEventListener("change", clearError)
+let inputBet = document.getElementById("betInput");
+inputBet.addEventListener("change", clearError);
 function clearError(){
-    let errorDiv = document.getElementById("errorDiv")
-    let errorMessage = document.querySelector(".errorMessage")
+    let errorDiv = document.getElementById("errorDiv");
+    let errorMessage = document.querySelector(".errorMessage");
     if(errorMessage !== null && errorDiv.firstChild){
         errorDiv.removeChild(errorMessage);
     }
 }
 
-//---------------Creating Buttons with Boats
+//---------------Creating Buttons with Boats -----------------
+
 function createButtonBoats(){
     for(let boat in boats){
-        boat = boats[boat]
+        boat = boats[boat];
         // console.log(boat)
-        let boatButton = document.createElement("button")
-        let divButton = document.querySelector("#boatButtonDiv")
-        boatButton.setAttribute("class", "btn-boat")
-        boatButton.style.background = `${boat.image} no-repeat center center`;
+        let boatButton = document.createElement("button");
+        let divButton = document.querySelector("#boatButtonDiv");
+        boatButton.setAttribute("class", "btn-boat");
+        boatButton.style.background = `url(${boat.image}) no-repeat center center`;
         boatButton.style.backgroundSize="50% 90%";
-        boatButton.setAttribute("id", `${boat.nameRef}-btn`)
-        boatButton.style.backgroundColor = `${boat.color}`
-        boatButton.style.color = `${boat.letter}`
-        boatButton.style.padding = "8px"
-        boatButton.style.margin = "3px"
-        boatButton.style.borderRadius = "8px"    
-        divButton.appendChild(boatButton)
+        boatButton.setAttribute("id", `${boat.nameRef}-btn`);
+        boatButton.style.backgroundColor = `${boat.color}`;
+        boatButton.style.color = `${boat.letter}`;
+        boatButton.style.padding = "8px";
+        boatButton.style.margin = "3px";
+        boatButton.style.borderRadius = "8px";
+        divButton.appendChild(boatButton);
     }
 }
 
-createButtonBoats()
+// createButtonBoats()
 
 
 let userBoatSelection;
 
-let buttonsBoats = document.querySelectorAll(".btn-boat")
+let buttonsBoats = document.querySelectorAll(".btn-boat");
 //---------------Event On Boat's Buttons ---------------
 function buttonAddEvent(){
     for(let buttonBoat of buttonsBoats){
-        buttonBoat.addEventListener("click", setUserBoat)
-        console.log(buttonBoat.id)
+        buttonBoat.addEventListener("click", setUserBoat);
+        console.log(buttonBoat.id);
     }
 }
 
@@ -250,96 +280,172 @@ buttonAddEvent()
 
 function removeBtnBoatClass(){
     for(let boat of buttonsBoats){
-        boat.classList.remove("active")
+        boat.classList.remove("active");
     }
 }
 
 function setUserBoat(e){
-    userBoatSelection = e.target.id
-    removeBtnBoatClass()
-    e.target.className += " active"
+    userBoatSelection = e.target.id;
+    removeBtnBoatClass();
+    e.target.className += " active";
 }
 
 //----------------------------------- Game Logic -----------------
 
 function checkwinner(boat){
-    console.log(userBoatSelection)
-    let boatSettings = boats.find(settings => settings.nameRef === boat.id)
-    let userBoatSelected = userBoatSelection.replace("-btn","")
-    console.log(userBoatSelected)
-    let hasBoatWin = (boat.style.left.replace('em',"") > boatSettings.positionFinish)
+    console.log(userBoatSelection);
+    let boatSettings = boats.find(settings => settings.nameRef === boat.id);
+    let userBoatSelected = userBoatSelection.replace("-btn","");
+    console.log(userBoatSelected);
+    let hasBoatWin = (boat.style.left.replace('vh',"") > boatSettings.positionFinish);
     // console.log(hasBoatWin)
     if(hasBoatWin === true){
         return;
     } else{
         boatsIntervals.forEach(interval => clearInterval(interval))
         if(boat.id === userBoatSelected ){
-            showWin()
+            showWin();
         }
         else{
-            showLose()
+            showLose();
         }
     }
 }
 
-function showWin(){
-    let winMessageDiv = document.createElement("div")
-    winMessageDiv.setAttribute("class", "win-div")
-    let winMessage = document.createElement("p")
-    let userPrize = userBet * 1.2;
-    
-    userAmount = userAmount + userPrize;
-    console.log(userAmount)
-    amountDiv.textContent = userAmount;
-    winMessage.textContent = `YOU WIN! ${userPrize}! You have now ${userAmount}`
-    let divUserMessage = document.createElement("div")
-    divUserMessage.setAttribute("class", "button-section")
-    let playAgain = document.createElement("button")
-    playAgain.setAttribute("class", "play-again-btn")
-    playAgain.textContent = "Play Again"
-    let reset = document.createElement("button")
-    reset.setAttribute("class", "play-again-btn")
-    reset.textContent = "Reset"
-    divUserMessage.appendChild(playAgain)
-    divUserMessage.appendChild(reset)
-    winMessageDiv.appendChild(winMessage)
-    winMessageDiv.appendChild(divUserMessage)
-    firstSection.appendChild(winMessageDiv)
+function createWinModal(){
+    const winModal = `
+    <div id="winModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>You Win!</h2>
+            </div>
+            <div class="modal-body">
+                <p class="win-message">Congratulation!! You received: ${userPrize}! You have now ${userAmount}</p>
+                <button id="newGame" class="btn-modal">Continue Game</button>
+                <button id="reset" class="btn-modal"> Reset</button>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>`
+
+    let modal = document.querySelector("#modalWin");
+    modal.innerHTML = winModal;
 }
 
+let userPrize
+function showWin(){
+    userPrize = userBet * 2;
+    userAmount = parseInt(userAmount) + parseInt(userBet) + parseInt(userPrize);
+    createWinModal()
+    let winModal = document.querySelector("#winModal")
+    let span = document.getElementsByClassName("close")[0];
+    winModal.style.display = "block";
+
+    span.onclick = function() {
+        winModal.style.display = "none";
+      }
+    window.onclick = function(event) {
+        if (event.target == winModal) {
+            winModal.style.display = "none";
+        }
+    }
+    let playAgain = document.getElementById("newGame");
+    playAgain.addEventListener("click", newGame);
+    let resetGame = document.getElementById("reset");
+    resetGame.addEventListener("click", reset);
+}
+
+function createLoseModal(){
+    const loseModal = `
+    <div id="loseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>You lose!</h2>
+            </div>
+            <div class="modal-body">
+                <p class="lose-message">Better Luck next time! You have now ${userAmount}</p>
+                <button id="newGame" class="btn-modal">Continue Game</button>
+                <button id="reset" class="btn-modal"> Reset</button>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>`
+
+    let modal = document.querySelector("#modalLose");
+    modal.innerHTML = loseModal;
+}
 
 function showLose(){
-    let loseDivMessage = document.createElement("div")
-    loseDivMessage.setAttribute("class", "win-div")
-    let loseMessage = document.createElement("p")
-    console.log(userAmount)
-    loseMessage.textContent = `You Lose! You have now ${userAmount}`
-    let divUserMessage = document.createElement("div")
-    divUserMessage.setAttribute("class", "button-section")
-    let playAgain = document.createElement("button")
-    playAgain.setAttribute("class", "play-again-btn")
-    playAgain.textContent = "Play Again"
-    playAgain.addEventListener("click", newGame)
-    let reset = document.createElement("button")
-    reset.setAttribute("class", "play-again-btn")
-    reset.textContent = "Reset"
-    divUserMessage.appendChild(playAgain)
-    divUserMessage.appendChild(reset)
-    loseDivMessage.appendChild(loseMessage)
-    loseDivMessage.appendChild(divUserMessage)
-    firstSection.appendChild(loseDivMessage)
+    createLoseModal()
+    let loseModal = document.getElementById("loseModal");
+    let span = document.getElementsByClassName("close")[0];
+    loseModal.style.display = "block";
+
+
+    span.onclick = function() {
+        loseModal.style.display = "none";
+      }
+    window.onclick = function(event) {
+        if (event.target == loseModal) {
+            loseModal.style.display = "none";
+        }
+    }
+    let playAgain = document.getElementById("newGame");
+    playAgain.addEventListener("click", newGame);
+    let resetGame = document.getElementById("reset");
+    resetGame.addEventListener("click", reset);
 }
 
 function newGame(){
-    for(let boat of buttonsBoats){
-        let boatSettings = boats.find(settings => settings.nameRef === boat.id)
-        console.log(boatSettings)
-        boat.style.left = boatSettings.initialPositionLeft
-        boat.style.top = boatSettings.initialPositionTop
-    }
-    document.querySelectorAll(".btn-boat").disabled = false;
-    document.querySelector("#betInput").disabled = false;
-    document.querySelector("#betInput").value = "";
-    document.querySelector("#submitBtn").disabled = false;
+    let modals = document.querySelector("#modals");
+    modals.style.display = "none";
+    createGameBg();
+    // let boatsDiv = document.querySelectorAll(".animateDiv");
+    // for(let boat of boatsDiv){
+    //         let boatSettings = boats.find(settings => settings.nameRef === boat.id);
+    //         console.log(boatSettings);
+    //         console.log(boat.style.left);
+    //         boat.style.left = boatSettings.initialPositionLeft + "vh";
+    //         boat.style.top = boatSettings.initialPositionTop + "vh";
+    //     }
+    // // createUserSection()
+    // removeBtnBoatClass()
+    // userBoatSelection = "";
+    // document.querySelectorAll(".btn-boat").disabled = false;
+    // document.querySelector("#betInput").disabled = false;
+    // document.querySelector("#betInput").value = "";
+    // document.querySelector("#submitBtn").disabled = false;
+    // document.querySelector(".start").disable = true;
 }
+
+
+function reset(){
+    let modals = document.querySelector("#modals");
+    modals.style.display = "none";
+    userAmount = 100;
+    userBet = 0;
+    userBoatSelection = "";
+    createGameBg();
+    // let boatsDiv = document.querySelectorAll(".animateDiv");
+    // for(let boat of boatsDiv){
+    //         let boatSettings = boats.find(settings => settings.nameRef === boat.id)
+    //         console.log(boatSettings);
+    //         console.log(boat.style.left);
+    //         boat.style.left = boatSettings.initialPositionLeft + "vh";
+    //         boat.style.top = boatSettings.initialPositionTop + "vh";
+    //     }
+    // // createUserSection()
+    // removeBtnBoatClass()
+    // amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`;
+    // document.querySelectorAll(".btn-boat").disabled = false;
+    // document.querySelector("#betInput").disabled = false;
+    // document.querySelector("#betInput").value = "";
+    // document.querySelector("#submitBtn").disabled = false;
+    // document.querySelector(".start").disable = true;
+}
+
 

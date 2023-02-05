@@ -38,13 +38,17 @@ section{
     justify-content: center;
     padding: 60px;
     background-color: #209594;
+    height: 720px;
+    width: 1280px;
 }
 
-/* .div-bg{
-    display: flex;
+.div-bg{
     background-image: url(images/background.png);
-    
-} */
+    position: absolute;
+    height: 720px;
+    width: 1280px;
+    background-repeat: no-repeat;
+}
 
 /* .img-bg{
     /* position: absolute; */
@@ -75,12 +79,14 @@ section{
 }
 
 .active{
- filter: brightness(70%);
+    filter: brightness(70%);
+    border: 1px solid white;
 }
 
 button{
     cursor: pointer;
 }
+
 .money{
     box-sizing: border-box;
     border: 2px;
@@ -108,7 +114,6 @@ button{
     background-color: white;
     color: gold;
 }
-
 
 #boatButtonDiv{
     display: flex;
@@ -143,7 +148,7 @@ button{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
 }
 
 #form-id{
@@ -155,7 +160,6 @@ button{
     color: red;
     font-size: 8px;
 }
-
 
 
 /* Modal */

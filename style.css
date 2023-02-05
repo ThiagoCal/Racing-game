@@ -8,6 +8,14 @@ body{
     padding: 0;
 }
 
+.title{
+    padding-top: 1em;
+    display: flex;
+    font-size: 3em;
+    justify-content: center;
+    background-color: #209594;
+}
+
 section{
     display: flex;
     padding: 5em;
@@ -79,6 +87,12 @@ section{
 .start:hover{
     background-color: white;
     color: gold;
+}
+
+#allUserSets{
+    margin-bottom: 5em;
+    display: flex;
+    justify-content: space-around;
 }
 
 #boatButtonDiv{

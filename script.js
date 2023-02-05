@@ -114,20 +114,20 @@ function movingBoat(boat){
 //---------------------------- User Interaction Section ---------------------------------
 
 function createUserSection(){ 
-    let buttonStart = document.createElement("button");
-
-    buttonStart.textContent = "Start Game";
-    buttonStart.setAttribute("class","start")
-    buttonStart.addEventListener("click", animationBox);
     let firstSection = document.getElementById("userSection");
-    firstSection.appendChild(buttonStart);
-    document.querySelector(".start").disabled = true;
+    
+
+    let allsets = document.createElement("div");
+    allsets.setAttribute("id", "allUserSets")
+    firstSection.appendChild(allsets)
+
+    let allUserSets = document.querySelector("#allUserSets")
 
 
     let moneyDiv = document.createElement("div");
     moneyDiv.setAttribute("class","moneyDiv");
     moneyDiv.setAttribute("id","moneyDiv");
-    firstSection.appendChild(moneyDiv);
+    allUserSets.appendChild(moneyDiv);
 
     let amountDiv = document.createElement("div");
     amountDiv.setAttribute("class", "money");
@@ -163,7 +163,15 @@ function createUserSection(){
     betForm.addEventListener("submit", placeBet);
     let boatButtonDiv = document.createElement("div");
     boatButtonDiv.setAttribute("id","boatButtonDiv");
-    firstSection.appendChild(boatButtonDiv);
+    allUserSets.appendChild(boatButtonDiv);
+
+    let buttonStart = document.createElement("button");
+
+    buttonStart.textContent = "Start Game";
+    buttonStart.setAttribute("class","start")
+    buttonStart.addEventListener("click", animationBox);
+    firstSection.appendChild(buttonStart);
+    document.querySelector(".start").disabled = true;
 }
 
 //--------------Event Bet --------------------------
@@ -400,8 +408,14 @@ function showLose(){
 
 
 function newGame(){
-    let modals = document.querySelector("#modals");
-    modals.style.display = "none";
+    let lose = document.querySelector("#loseModal")
+    let win = document.querySelector("#winModal")
+    if(lose){
+        lose.remove()
+    }
+    if(win){
+        win.remove()
+    }
     let boatsDiv = document.querySelectorAll(".animateDiv");
     let amount = document.querySelector("#amount")
     amount.textContent = userAmount;
@@ -425,8 +439,14 @@ function newGame(){
 
 
 function reset(){
-    let modals = document.querySelector("#modals");
-    modals.style.display = "none";
+    let lose = document.querySelector("#loseModal")
+    let win = document.querySelector("#winModal")
+    if(lose){
+        lose.remove()
+    }
+    if(win){
+        win.remove()
+    }
     userAmount = 100;
     userBet = 0;
     userBoatSelection = "";

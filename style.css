@@ -16,21 +16,13 @@ section{
 .userStyle{
     display: flex;
     flex-direction: column;
-    /* background-color: #4ef6df; */
-    /* background-color: #c6eaec; */
     background-color: #209594;
-    /* background-image: radial-gradient(circle, #36ff72, #0bff8e, #00fea7, #00fcbc, #1bfacd, #1debcb, #29ddc8, #37cec2, #2ab1ab, #209594, #1a7a7c, #156064); */
 }
 
 .container {
     display: flex;
     justify-content: center;
-    /* background-color: #156064;
-    border-radius: 2em; */
-    /* border-radius: 2em; */
-    /* background-color: #209594; */
     background-color: blanchedalmond;
-    /* background-image: radial-gradient(circle, #36ff72, #0bff8e, #00fea7, #00fcbc, #1bfacd, #1debcb, #29ddc8, #37cec2, #2ab1ab, #209594, #1a7a7c, #156064); */
 }
 
 .capsule-bg{
@@ -50,21 +42,13 @@ section{
     background-repeat: no-repeat;
 }
 
-/* .img-bg{
-    /* position: absolute; */
-    /* height: auto;
-    width: auto; */
-
-
 .animateDiv{
-    /* border: 1px solid black; */
     position: absolute;
 }
 
 .boat-img {
     width: 100px;
     height: 110px;
-    /* position: absolute; */
     transition: all;
 }
 
@@ -80,7 +64,7 @@ section{
 
 .active{
     filter: brightness(70%);
-    border: 1px solid white;
+    border: 3px solid white;
 }
 
 button{
@@ -148,7 +132,6 @@ button{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    /* justify-content: flex-end; */
 }
 
 #form-id{
@@ -167,17 +150,17 @@ button{
 /* The Modal (background) */
 .modal {
     font-size: large;
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
   }
   
   /* Modal Content */

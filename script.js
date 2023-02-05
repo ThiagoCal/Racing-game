@@ -5,7 +5,7 @@ let boats = [
         image: "images/blueboat.png",
         initialPositionLeft: 90,
         initialPositionTop: 14,
-        positionFinish: 5.6,
+        positionFinish: 10,
         color: "blue",
     },
     { 
@@ -23,7 +23,7 @@ let boats = [
         image: "images/yellowboat.png",
         initialPositionLeft: 109,
         initialPositionTop: 25,
-        positionFinish: 26,
+        positionFinish: 29,
         color:"yellow",
     },
     { 
@@ -32,7 +32,7 @@ let boats = [
         image: "images/greenboat.png",
         initialPositionLeft: 118,
         initialPositionTop: 32,
-        positionFinish: 39,
+        positionFinish: 38,
         color:"green",
     },
 ]

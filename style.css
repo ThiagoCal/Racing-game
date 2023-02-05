@@ -27,6 +27,18 @@ section{
     background-color: #209594;
 }
 
+#titleChoose{
+    display: flex;
+    align-self: center;
+    font-size: 15px;
+}
+
+.divBet{
+    display: flex;
+    align-self: center;
+    font-size: 15px;
+}
+
 .container {
     display: flex;
     justify-content: center;

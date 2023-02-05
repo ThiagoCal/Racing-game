@@ -116,13 +116,30 @@ function movingBoat(boat){
 function createUserSection(){ 
     let firstSection = document.getElementById("userSection");
     
+    let titleChoose = document.createElement("div")
+    titleChoose.setAttribute("id", "titleChoose")
+    let chooseText = document.createElement("p")
+    chooseText.textContent = "Choose your boat"
+    titleChoose.appendChild(chooseText)
+    firstSection.appendChild(titleChoose)
 
     let allsets = document.createElement("div");
     allsets.setAttribute("id", "allUserSets")
     firstSection.appendChild(allsets)
 
+
     let allUserSets = document.querySelector("#allUserSets")
 
+    let boatButtonDiv = document.createElement("div");
+    boatButtonDiv.setAttribute("id","boatButtonDiv");
+    allUserSets.appendChild(boatButtonDiv);
+    
+    let divBet = document.createElement("div")
+    divBet.setAttribute("class", "divBet")
+    allUserSets.appendChild(divBet)
+    let titleBet = document.createElement("p")
+    titleBet.textContent = "Place yout bet here:"
+    divBet.appendChild(titleBet)
 
     let moneyDiv = document.createElement("div");
     moneyDiv.setAttribute("class","moneyDiv");
@@ -131,7 +148,9 @@ function createUserSection(){
 
     let amountDiv = document.createElement("div");
     amountDiv.setAttribute("class", "money");
-    amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <span id="amount">${userAmount}</span>`;
+    let imageDiv = document.createElement("div")
+    amountDiv.appendChild(imageDiv)
+    imageDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <span id="amount">${userAmount}</span>`;
     moneyDiv.appendChild(amountDiv);
 
     let formDiv = document.createElement("div");
@@ -161,9 +180,7 @@ function createUserSection(){
     let betForm = document.forms.placeBet;
 
     betForm.addEventListener("submit", placeBet);
-    let boatButtonDiv = document.createElement("div");
-    boatButtonDiv.setAttribute("id","boatButtonDiv");
-    allUserSets.appendChild(boatButtonDiv);
+    
 
     let buttonStart = document.createElement("button");
 

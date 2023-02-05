@@ -42,7 +42,8 @@ section{
 
 /* .div-bg{
     display: flex;
-    justify-content: center;
+    background-image: url(images/background.png);
+    
 } */
 
 /* .img-bg{
@@ -52,6 +53,7 @@ section{
 
 
 .animateDiv{
+    /* border: 1px solid black; */
     position: absolute;
 }
 

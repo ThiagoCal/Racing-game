@@ -38,28 +38,38 @@ let boats = [
 ]
 
 // ----------------------------- Create Game Background
-
 let containerBox = document.getElementById("game");
 let boxDiv = document.getElementById("animateDiv");
+let userAmount = 100;
+let userBet;
+function createGameBg(){ 
+    
+    createUserSection()
+    createButtonBoats()
+    
+    let divEncapsuleBG = document.createElement("div");
+    divEncapsuleBG.setAttribute("class", "capsule-bg");
+    containerBox.appendChild(divEncapsuleBG);
+    
+    let divGameBackground = document.createElement("div");
+    divGameBackground.setAttribute("class", "div-bg");
+    divEncapsuleBG.appendChild(divGameBackground);
+    
+    let imageGameBackground = document.createElement("img");
+    imageGameBackground.setAttribute("class", "img-bg");
+    let imageBg = "images/background.png";
+    imageGameBackground.setAttribute("src", imageBg );
+    divGameBackground.appendChild(imageGameBackground);
+    createBoats()
+}
 
-let divEncapsuleBG = document.createElement("div");
-divEncapsuleBG.setAttribute("class", "capsule-bg");
-containerBox.appendChild(divEncapsuleBG);
-
-let divGameBackground = document.createElement("div");
-divGameBackground.setAttribute("class", "div-bg");
-divEncapsuleBG.appendChild(divGameBackground);
-
-let imageGameBackground = document.createElement("img");
-imageGameBackground.setAttribute("class", "img-bg");
-let imageBg = "images/background.png";
-imageGameBackground.setAttribute("src", imageBg );
-divGameBackground.appendChild(imageGameBackground);
+createGameBg();
 
 //-----------------------Boat Creation -------------------------------
 
 function createBoats(){
     for(let boat in boats){
+        let divGameBackground = document.querySelector(".div-bg");
         boat = boats[boat]
         let boatDiv = document.createElement("div");
         boatDiv.setAttribute("class", "animateDiv");
@@ -77,7 +87,7 @@ function createBoats(){
     }
 }
 
-createBoats()
+// createBoats()
 
 // --------------------Boat Animation ---------------------------------
 
@@ -104,64 +114,69 @@ function movingBoat(boat){
 
 //---------------------------- User Interaction Section ---------------------------------
 
-let buttonStart = document.createElement("button");
 
-buttonStart.textContent = "Start Game";
-buttonStart.setAttribute("class","start")
-buttonStart.addEventListener("click", animationBox);
-let firstSection = document.getElementById("userSection");
-firstSection.appendChild(buttonStart);
-document.querySelector(".start").disabled = true;
+function createUserSection(){ 
+    let buttonStart = document.createElement("button");
 
-let userAmount = 100;
-let userBet;
+    buttonStart.textContent = "Start Game";
+    buttonStart.setAttribute("class","start")
+    buttonStart.addEventListener("click", animationBox);
+    let firstSection = document.getElementById("userSection");
+    firstSection.appendChild(buttonStart);
+    document.querySelector(".start").disabled = true;
 
-let moneyDiv = document.createElement("div");
-moneyDiv.setAttribute("class","moneyDiv");
-moneyDiv.setAttribute("id","moneyDiv");
-firstSection.appendChild(moneyDiv);
 
-let amountDiv = document.createElement("div");
-amountDiv.setAttribute("class", "money");
-amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`;
-moneyDiv.appendChild(amountDiv);
+    let moneyDiv = document.createElement("div");
+    moneyDiv.setAttribute("class","moneyDiv");
+    moneyDiv.setAttribute("id","moneyDiv");
+    firstSection.appendChild(moneyDiv);
 
-let formDiv = document.createElement("div");
-formDiv.setAttribute("class", "form-div");
-moneyDiv.appendChild(formDiv);
+    let amountDiv = document.createElement("div");
+    amountDiv.setAttribute("class", "money");
+    amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`;
+    moneyDiv.appendChild(amountDiv);
 
-let form = document.createElement("form");
-form.setAttribute("name", "placeBet");
-form.setAttribute("id","form-id");
-let amountBet = document.createElement("input")
-amountBet.setAttribute("type", "text");
-amountBet.setAttribute("name", "bet");
-amountBet.setAttribute("class", "bet-input");
-amountBet.setAttribute("id", "betInput");
-amountBet.setAttribute("placeholder", "");
-form.appendChild(amountBet);
+    let formDiv = document.createElement("div");
+    formDiv.setAttribute("class", "form-div");
+    moneyDiv.appendChild(formDiv);
 
-let betBtn = document.createElement("input")
-betBtn.setAttribute("type", "submit");
-betBtn.setAttribute("class", "submit-btn");
-betBtn.setAttribute("id", "submitBtn");
-betBtn.setAttribute("value", "Place Bet");
-form.appendChild(betBtn);
+    let form = document.createElement("form");
+    form.setAttribute("name", "placeBet");
+    form.setAttribute("id","form-id");
+    let amountBet = document.createElement("input")
+    amountBet.setAttribute("type", "text");
+    amountBet.setAttribute("name", "bet");
+    amountBet.setAttribute("class", "bet-input");
+    amountBet.setAttribute("id", "betInput");
+    amountBet.setAttribute("placeholder", "");
+    form.appendChild(amountBet);
 
-formDiv.appendChild(form)
+    let betBtn = document.createElement("input")
+    betBtn.setAttribute("type", "submit");
+    betBtn.setAttribute("class", "submit-btn");
+    betBtn.setAttribute("id", "submitBtn");
+    betBtn.setAttribute("value", "Place Bet");
+    form.appendChild(betBtn);
 
-let betForm = document.forms.placeBet;
+    formDiv.appendChild(form)
 
-betForm.addEventListener("submit", placeBet);
-let boatButtonDiv = document.createElement("div");
-boatButtonDiv.setAttribute("id","boatButtonDiv");
-firstSection.appendChild(boatButtonDiv);
+    let betForm = document.forms.placeBet;
+
+    betForm.addEventListener("submit", placeBet);
+    let boatButtonDiv = document.createElement("div");
+    boatButtonDiv.setAttribute("id","boatButtonDiv");
+    firstSection.appendChild(boatButtonDiv);
+
+    
+}
+
 
 //--------------Event Bet --------------------------
 
 function placeBet(e){
     e.preventDefault()
-    
+    let betForm = document.forms.placeBet;
+    let amountDiv = document.querySelector(".money");
     userBet = e.target.bet.value;
     let betValue = e.target.bet.value;
     if(betValue > userAmount){
@@ -247,7 +262,7 @@ function createButtonBoats(){
     }
 }
 
-createButtonBoats()
+// createButtonBoats()
 
 
 let userBoatSelection;
@@ -388,43 +403,49 @@ function showLose(){
 function newGame(){
     let modals = document.querySelector("#modals");
     modals.style.display = "none";
-    let boatsDiv = document.querySelectorAll(".animateDiv");
-    for(let boat of boatsDiv){
-            let boatSettings = boats.find(settings => settings.nameRef === boat.id);
-            console.log(boatSettings);
-            console.log(boat.style.left);
-            boat.style.left = boatSettings.initialPositionLeft + "vh";
-            boat.style.top = boatSettings.initialPositionTop + "vh";
-        }
-    removeBtnBoatClass()
-    document.querySelectorAll(".btn-boat").disabled = false;
-    document.querySelector("#betInput").disabled = false;
-    document.querySelector("#betInput").value = "";
-    document.querySelector("#submitBtn").disabled = false;
-    document.querySelector(".start").disable = true;
+    createGameBg();
+    // let boatsDiv = document.querySelectorAll(".animateDiv");
+    // for(let boat of boatsDiv){
+    //         let boatSettings = boats.find(settings => settings.nameRef === boat.id);
+    //         console.log(boatSettings);
+    //         console.log(boat.style.left);
+    //         boat.style.left = boatSettings.initialPositionLeft + "vh";
+    //         boat.style.top = boatSettings.initialPositionTop + "vh";
+    //     }
+    // // createUserSection()
+    // removeBtnBoatClass()
+    // userBoatSelection = "";
+    // document.querySelectorAll(".btn-boat").disabled = false;
+    // document.querySelector("#betInput").disabled = false;
+    // document.querySelector("#betInput").value = "";
+    // document.querySelector("#submitBtn").disabled = false;
+    // document.querySelector(".start").disable = true;
 }
 
 
 function reset(){
     let modals = document.querySelector("#modals");
     modals.style.display = "none";
-    let boatsDiv = document.querySelectorAll(".animateDiv");
-    for(let boat of boatsDiv){
-            let boatSettings = boats.find(settings => settings.nameRef === boat.id)
-            console.log(boatSettings);
-            console.log(boat.style.left);
-            boat.style.left = boatSettings.initialPositionLeft + "vh";
-            boat.style.top = boatSettings.initialPositionTop + "vh";
-        }
     userAmount = 100;
     userBet = 0;
-    removeBtnBoatClass()
-    amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`;
-    document.querySelectorAll(".btn-boat").disabled = false;
-    document.querySelector("#betInput").disabled = false;
-    document.querySelector("#betInput").value = "";
-    document.querySelector("#submitBtn").disabled = false;
-    document.querySelector(".start").disable = true;
+    userBoatSelection = "";
+    createGameBg();
+    // let boatsDiv = document.querySelectorAll(".animateDiv");
+    // for(let boat of boatsDiv){
+    //         let boatSettings = boats.find(settings => settings.nameRef === boat.id)
+    //         console.log(boatSettings);
+    //         console.log(boat.style.left);
+    //         boat.style.left = boatSettings.initialPositionLeft + "vh";
+    //         boat.style.top = boatSettings.initialPositionTop + "vh";
+    //     }
+    // // createUserSection()
+    // removeBtnBoatClass()
+    // amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`;
+    // document.querySelectorAll(".btn-boat").disabled = false;
+    // document.querySelector("#betInput").disabled = false;
+    // document.querySelector("#betInput").value = "";
+    // document.querySelector("#submitBtn").disabled = false;
+    // document.querySelector(".start").disable = true;
 }
 
 

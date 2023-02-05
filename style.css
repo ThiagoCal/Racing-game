@@ -13,25 +13,54 @@ section{
     padding: 5em;
 }
 
-
-.container {
-    /* display: flex; */
-    background-image: url(images/background.png);
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-position:center;
-    box-sizing: border-box;
-    border: 5px;
-    border-color:darkgreen;
-    border-style: solid;
+.userStyle{
+    display: flex;
+    flex-direction: column;
+    /* background-color: #4ef6df; */
+    /* background-color: #c6eaec; */
+    background-color: #209594;
+    /* background-image: radial-gradient(circle, #36ff72, #0bff8e, #00fea7, #00fcbc, #1bfacd, #1debcb, #29ddc8, #37cec2, #2ab1ab, #209594, #1a7a7c, #156064); */
 }
 
-.animate {
-    width: 100px;
-    height: 120px;
+.container {
+    display: flex;
+    justify-content: center;
+    /* background-color: #156064;
+    border-radius: 2em; */
+    /* border-radius: 2em; */
+    /* background-color: #209594; */
+    background-color: blanchedalmond;
+    /* background-image: radial-gradient(circle, #36ff72, #0bff8e, #00fea7, #00fcbc, #1bfacd, #1debcb, #29ddc8, #37cec2, #2ab1ab, #209594, #1a7a7c, #156064); */
+}
+
+.capsule-bg{
+    display: flex;
+    justify-content: center;
+    padding: 60px;
+    background-color: #209594;
+}
+
+/* .div-bg{
+    display: flex;
+    background-image: url(images/background.png);
+    
+} */
+
+/* .img-bg{
+    /* position: absolute; */
+    /* height: auto;
+    width: auto; */
+
+
+.animateDiv{
+    /* border: 1px solid black; */
     position: absolute;
+}
+
+.boat-img {
+    width: 100px;
+    height: 110px;
+    /* position: absolute; */
     transition: all;
 }
 
@@ -54,13 +83,12 @@ button{
 }
 .money{
     box-sizing: border-box;
-    border: 5px;
+    border: 2px;
     border-style: solid;
-    border-color: black;
+    border-color:blanchedalmond;
     width: 100px;
     background-color: rgb(177, 152, 8);
     font-size: medium;
-
 }
 
 .start{
@@ -81,11 +109,6 @@ button{
     color: gold;
 }
 
-.userStyle{
-    display: flex;
-    flex-direction: column;
-   background-color: #4ef6df;
-}
 
 #boatButtonDiv{
     display: flex;
@@ -107,11 +130,13 @@ button{
 }
 
 .bet-input{
-    border: 3px;
+    border: 2px;
     border-color: black;
     border-style: solid;
     padding: 7px;
     font-size: 12px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }  
 
 .moneyDiv{
@@ -129,3 +154,79 @@ button{
 .errorMessage{
     color: red;
     font-size: 8px;
+}
+
+
+
+/* Modal */
+
+/* The Modal (background) */
+.modal {
+    font-size: large;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+  
+  /* The Close Button */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    padding: 2px 16px;
+    background-color:  #209594;
+    color: white;
+  }
+  
+  .modal-body {padding: 2px 16px;}
+  
+  .modal-footer {
+    padding: 2px 16px;
+    background-color:  #209594;
+    color: white;
+  }

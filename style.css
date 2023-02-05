@@ -92,13 +92,13 @@ section{
 #allUserSets{
     margin-bottom: 5em;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
 }
 
 #boatButtonDiv{
     display: flex;
     flex-direction: row;
-   justify-content: center;
+    justify-content: center;
 }
 
 .btn-boat{
@@ -152,7 +152,7 @@ button{
 .moneyDiv{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .errorMessage{

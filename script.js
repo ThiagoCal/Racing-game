@@ -3,36 +3,36 @@ let boats = [
         name: "Blue Boat",
         nameRef: "blueboat",
         image: "images/blueboat.png",
-        initialPositionLeft: 90,
-        initialPositionTop: 14,
-        positionFinish: 10,
+        initialPositionLeft: 650,
+        initialPositionTop: 100,
+        positionFinish: 70,
         color: "blue",
     },
     { 
         name: "Red Boat",
         nameRef: "redboat",
         image: "images/redboat.png",
-        initialPositionLeft: 98,
-        initialPositionTop: 20,
-        positionFinish: 18,
+        initialPositionLeft: 710,
+        initialPositionTop: 160,
+        positionFinish: 120,
         color:"red",
     },
     { 
         name: "Yellow Boat",
         nameRef: "yellowboat",
         image: "images/yellowboat.png",
-        initialPositionLeft: 109,
-        initialPositionTop: 25,
-        positionFinish: 29,
+        initialPositionLeft: 795,
+        initialPositionTop: 225,
+        positionFinish: 220,
         color:"yellow",
     },
     { 
         name: "Green Boat",
         nameRef: "greenboat",
         image: "images/greenboat.png",
-        initialPositionLeft: 118,
-        initialPositionTop: 32,
-        positionFinish: 38,
+        initialPositionLeft: 875,
+        initialPositionTop: 280,
+        positionFinish: 300,
         color:"green",
     },
 ]
@@ -74,8 +74,8 @@ function createBoats(){
         boatDiv.setAttribute("class", "animateDiv");
         let initialPositionLeft = boat.initialPositionLeft;
         let initialPositionTop = boat.initialPositionTop;
-        boatDiv.style.left = initialPositionLeft + "vh";
-        boatDiv.style.top = initialPositionTop + "vh";
+        boatDiv.style.left = initialPositionLeft + "px";
+        boatDiv.style.top = initialPositionTop + "px";
         let boatImg = document.createElement("img");
         boatImg.setAttribute("class", "boat-img");
         boatImg.setAttribute("src", boat.image );
@@ -94,7 +94,7 @@ let boatsIntervals = []
 function animationBox(){
     let boatDivs = document.querySelectorAll(".animateDiv");
     for(let boatMove of boatDivs){
-        const interval = setInterval(movingBoat, getRandomArbitrary(20, 80), boatMove);
+        const interval = setInterval(movingBoat, getRandomArbitrary(5, 15), boatMove);
         boatsIntervals.push(interval);
     }
 }
@@ -106,8 +106,8 @@ function getRandomArbitrary(min, max) {
 function movingBoat(boat){
     let movementLeft = 0.14;
     let movementTop = 0.07;
-    boat.style.left = parseFloat(boat.style.left) - movementLeft + "vh";
-    boat.style.top = parseFloat(boat.style.top) + movementTop + "vh";
+    boat.style.left = parseFloat(boat.style.left) - movementLeft + "px";
+    boat.style.top = parseFloat(boat.style.top) + movementTop + "px";
     checkwinner(boat);
 }
 
@@ -302,7 +302,7 @@ function checkwinner(boat){
     let boatSettings = boats.find(settings => settings.nameRef === boat.id);
     let userBoatSelected = userBoatSelection.replace("-btn","");
     // console.log(userBoatSelected);
-    let hasBoatWin = (boat.style.left.replace('vh',"") > boatSettings.positionFinish);
+    let hasBoatWin = (boat.style.left.replace('px',"") > boatSettings.positionFinish);
     // console.log(hasBoatWin)
     if(hasBoatWin === true){
         return;
@@ -423,8 +423,8 @@ function newGame(){
             let boatSettings = boats.find(settings => settings.nameRef === boat.id);
             console.log(boatSettings);
             console.log(boat.style.left);
-            boat.style.left = boatSettings.initialPositionLeft + "vh";
-            boat.style.top = boatSettings.initialPositionTop + "vh";
+            boat.style.left = boatSettings.initialPositionLeft + "px";
+            boat.style.top = boatSettings.initialPositionTop + "px";
         }
     // createUserSection()
     removeBtnBoatClass()
@@ -458,8 +458,8 @@ function reset(){
             let boatSettings = boats.find(settings => settings.nameRef === boat.id)
             console.log(boatSettings);
             console.log(boat.style.left);
-            boat.style.left = boatSettings.initialPositionLeft + "vh";
-            boat.style.top = boatSettings.initialPositionTop + "vh";
+            boat.style.left = boatSettings.initialPositionLeft + "px";
+            boat.style.top = boatSettings.initialPositionTop + "px";
         }
     // createUserSection()
     removeBtnBoatClass()

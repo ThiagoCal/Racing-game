@@ -5,7 +5,7 @@ let boats = [
         image: "images/blueboat.png",
         initialPositionLeft: 90,
         initialPositionTop: 14,
-        positionFinish: 5.6,
+        positionFinish: 10,
         color: "blue",
     },
     { 
@@ -23,7 +23,7 @@ let boats = [
         image: "images/yellowboat.png",
         initialPositionLeft: 109,
         initialPositionTop: 25,
-        positionFinish: 26,
+        positionFinish: 29,
         color:"yellow",
     },
     { 
@@ -32,7 +32,7 @@ let boats = [
         image: "images/greenboat.png",
         initialPositionLeft: 118,
         initialPositionTop: 32,
-        positionFinish: 39,
+        positionFinish: 38,
         color:"green",
     },
 ]
@@ -42,11 +42,14 @@ let containerBox = document.getElementById("game");
 let boxDiv = document.getElementById("animateDiv");
 let userAmount = 100;
 let userBet;
-function createGameBg(){ 
+let userBoatSelection;
+
+function createGame(){ 
     
     createUserSection()
-    createButtonBoats()
     
+    createButtonBoats()
+    buttonAddEvent()
     let divEncapsuleBG = document.createElement("div");
     divEncapsuleBG.setAttribute("class", "capsule-bg");
     containerBox.appendChild(divEncapsuleBG);
@@ -55,15 +58,11 @@ function createGameBg(){
     divGameBackground.setAttribute("class", "div-bg");
     divEncapsuleBG.appendChild(divGameBackground);
     
-    let imageGameBackground = document.createElement("img");
-    imageGameBackground.setAttribute("class", "img-bg");
-    let imageBg = "images/background.png";
-    imageGameBackground.setAttribute("src", imageBg );
-    divGameBackground.appendChild(imageGameBackground);
+
     createBoats()
 }
 
-createGameBg();
+createGame();
 
 //-----------------------Boat Creation -------------------------------
 
@@ -114,7 +113,6 @@ function movingBoat(boat){
 
 //---------------------------- User Interaction Section ---------------------------------
 
-
 function createUserSection(){ 
     let buttonStart = document.createElement("button");
 
@@ -133,7 +131,7 @@ function createUserSection(){
 
     let amountDiv = document.createElement("div");
     amountDiv.setAttribute("class", "money");
-    amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`;
+    amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <span id="amount">${userAmount}</span>`;
     moneyDiv.appendChild(amountDiv);
 
     let formDiv = document.createElement("div");
@@ -166,10 +164,7 @@ function createUserSection(){
     let boatButtonDiv = document.createElement("div");
     boatButtonDiv.setAttribute("id","boatButtonDiv");
     firstSection.appendChild(boatButtonDiv);
-
-    
 }
-
 
 //--------------Event Bet --------------------------
 
@@ -217,18 +212,19 @@ function placeBet(e){
         betForm.appendChild(errorBoat);
         return;
     }
-        userAmount = userAmount - betValue
-        amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`
-        document.querySelectorAll('.btn-boat').forEach(elem => {
-            elem.disabled = true;
-          });
-        document.querySelectorAll('.errorMessage').forEach(elem => {
-            elem.remove();
+    userAmount = userAmount - betValue;
+    let amount = document.querySelector("#amount");
+    amount.textContent = userAmount;
+    document.querySelectorAll('.btn-boat').forEach(elem => {
+        elem.disabled = true;
         });
-        document.querySelector("#betInput").disabled = true;
-        document.querySelector("#submitBtn").disabled = true;
-        document.querySelector(".start").disabled = false;
-        return userAmount
+    document.querySelectorAll('.errorMessage').forEach(elem => {
+        elem.remove();
+    });
+    document.querySelector("#betInput").disabled = true;
+    document.querySelector("#submitBtn").disabled = true;
+    document.querySelector(".start").disabled = false;
+    return userAmount
 }
 
 let inputBet = document.getElementById("betInput");
@@ -262,25 +258,26 @@ function createButtonBoats(){
     }
 }
 
-// createButtonBoats()
-
-
-let userBoatSelection;
-
-let buttonsBoats = document.querySelectorAll(".btn-boat");
 //---------------Event On Boat's Buttons ---------------
 function buttonAddEvent(){
+    let buttonsBoats = document.querySelectorAll(".btn-boat");
     for(let buttonBoat of buttonsBoats){
         buttonBoat.addEventListener("click", setUserBoat);
         console.log(buttonBoat.id);
     }
 }
 
-buttonAddEvent()
-
 function removeBtnBoatClass(){
+    let buttonsBoats = document.querySelectorAll(".btn-boat");
     for(let boat of buttonsBoats){
         boat.classList.remove("active");
+    }
+}
+
+function enableButtonBoats(){
+    let buttonsBoats = document.querySelectorAll(".btn-boat");
+    for(let boat of buttonsBoats){
+        boat.removeAttribute("disabled");
     }
 }
 
@@ -293,10 +290,10 @@ function setUserBoat(e){
 //----------------------------------- Game Logic -----------------
 
 function checkwinner(boat){
-    console.log(userBoatSelection);
+    // console.log(userBoatSelection);
     let boatSettings = boats.find(settings => settings.nameRef === boat.id);
     let userBoatSelected = userBoatSelection.replace("-btn","");
-    console.log(userBoatSelected);
+    // console.log(userBoatSelected);
     let hasBoatWin = (boat.style.left.replace('vh',"") > boatSettings.positionFinish);
     // console.log(hasBoatWin)
     if(hasBoatWin === true){
@@ -338,6 +335,7 @@ let userPrize
 function showWin(){
     userPrize = userBet * 2;
     userAmount = parseInt(userAmount) + parseInt(userBet) + parseInt(userPrize);
+
     createWinModal()
     let winModal = document.querySelector("#winModal")
     let span = document.getElementsByClassName("close")[0];
@@ -400,26 +398,29 @@ function showLose(){
     resetGame.addEventListener("click", reset);
 }
 
+
 function newGame(){
     let modals = document.querySelector("#modals");
     modals.style.display = "none";
-    createGameBg();
-    // let boatsDiv = document.querySelectorAll(".animateDiv");
-    // for(let boat of boatsDiv){
-    //         let boatSettings = boats.find(settings => settings.nameRef === boat.id);
-    //         console.log(boatSettings);
-    //         console.log(boat.style.left);
-    //         boat.style.left = boatSettings.initialPositionLeft + "vh";
-    //         boat.style.top = boatSettings.initialPositionTop + "vh";
-    //     }
-    // // createUserSection()
-    // removeBtnBoatClass()
-    // userBoatSelection = "";
-    // document.querySelectorAll(".btn-boat").disabled = false;
-    // document.querySelector("#betInput").disabled = false;
-    // document.querySelector("#betInput").value = "";
-    // document.querySelector("#submitBtn").disabled = false;
-    // document.querySelector(".start").disable = true;
+    let boatsDiv = document.querySelectorAll(".animateDiv");
+    let amount = document.querySelector("#amount")
+    amount.textContent = userAmount;
+    for(let boat of boatsDiv){
+            let boatSettings = boats.find(settings => settings.nameRef === boat.id);
+            console.log(boatSettings);
+            console.log(boat.style.left);
+            boat.style.left = boatSettings.initialPositionLeft + "vh";
+            boat.style.top = boatSettings.initialPositionTop + "vh";
+        }
+    // createUserSection()
+    removeBtnBoatClass()
+    userBoatSelection = "";
+    
+    enableButtonBoats()
+    document.querySelector("#betInput").disabled = false;
+    document.querySelector("#betInput").value = "";
+    document.querySelector("#submitBtn").disabled = false;
+    document.querySelector(".start").disable = true;
 }
 
 
@@ -429,23 +430,24 @@ function reset(){
     userAmount = 100;
     userBet = 0;
     userBoatSelection = "";
-    createGameBg();
-    // let boatsDiv = document.querySelectorAll(".animateDiv");
-    // for(let boat of boatsDiv){
-    //         let boatSettings = boats.find(settings => settings.nameRef === boat.id)
-    //         console.log(boatSettings);
-    //         console.log(boat.style.left);
-    //         boat.style.left = boatSettings.initialPositionLeft + "vh";
-    //         boat.style.top = boatSettings.initialPositionTop + "vh";
-    //     }
-    // // createUserSection()
-    // removeBtnBoatClass()
-    // amountDiv.innerHTML = `<img src="images/coins.png" alt="coins" width = "30px" height = "30px"> <sect>${userAmount}</sect>`;
-    // document.querySelectorAll(".btn-boat").disabled = false;
-    // document.querySelector("#betInput").disabled = false;
-    // document.querySelector("#betInput").value = "";
-    // document.querySelector("#submitBtn").disabled = false;
-    // document.querySelector(".start").disable = true;
+    let amount = document.querySelector("#amount")
+    amount.textContent = userAmount;
+    // createGameBg();
+    let boatsDiv = document.querySelectorAll(".animateDiv");
+    for(let boat of boatsDiv){
+            let boatSettings = boats.find(settings => settings.nameRef === boat.id)
+            console.log(boatSettings);
+            console.log(boat.style.left);
+            boat.style.left = boatSettings.initialPositionLeft + "vh";
+            boat.style.top = boatSettings.initialPositionTop + "vh";
+        }
+    // createUserSection()
+    removeBtnBoatClass()
+    enableButtonBoats()
+    document.querySelector("#betInput").disabled = false;
+    document.querySelector("#betInput").value = "";
+    document.querySelector("#submitBtn").disabled = false;
+    document.querySelector(".start").disable = true;
 }
 
 

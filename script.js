@@ -138,7 +138,7 @@ function createUserSection(){
     divBet.setAttribute("class", "divBet")
     allUserSets.appendChild(divBet)
     let titleBet = document.createElement("p")
-    titleBet.textContent = "Place yout bet here:"
+    titleBet.textContent = "Place your bet here:"
     divBet.appendChild(titleBet)
 
     let moneyDiv = document.createElement("div");
@@ -343,7 +343,7 @@ function createWinModal(){
                 <h2>You Win!</h2>
             </div>
             <div class="modal-body">
-                <p class="win-message">Congratulation!! You received: ${userPrize}! You have now ${userAmount}</p>
+                <p class="win-message">Congratulations!! You received: ${userPrize}! You now have ${userAmount}</p>
                 <button id="newGame" class="btn-modal">Continue Game</button>
                 <button id="reset" class="btn-modal"> Reset</button>
             </div>
@@ -389,7 +389,7 @@ function createLoseModal(){
                 <h2>You lose!</h2>
             </div>
             <div class="modal-body">
-                <p class="lose-message">Better Luck next time! You have now ${userAmount}</p>
+                <p class="lose-message">Better Luck next time! You now have ${userAmount}</p>
                 <button id="newGame" class="btn-modal">Continue Game</button>
                 <button id="reset" class="btn-modal"> Reset</button>
             </div>

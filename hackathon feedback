@@ -1,0 +1,18 @@
+Racing betting game.
+I love the concept of the game!
+You showed your understanding of the learned material with DOM manipulation,loops,conditionals,advanced array methods- Very impressive!
+When styling an element inside javascript with dom manipulation, instead of writing a new line for each style I would do per the example:
+
+Instead of: 
+element.style.color="black"
+element.style.backgroundColor="white";
+element.style.borderColor="black";
+
+I would do:
+ element.style="color:black; backgroundColor:white; borderColor:black;"
+
+This will make your code shorter and improve readability.
+Also I would define all your elements (document.getElementById/querySelector) at the beggining of the script file and not inside
+each function each time you need an element!
+
+You guys did a fantastic job with this project.
